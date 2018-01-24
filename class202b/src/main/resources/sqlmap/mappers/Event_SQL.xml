@@ -1,0 +1,404 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="Event">
+
+	<resultMap id="event" type="com.ohhoonim.vo.EventVo">
+		<result property="eventId" column="EVENT_ID" />
+		<result property="eventTitle" column="EVENT_TITLE" />
+		<result property="eventTeacher" column="EVENT_TEACHER" />
+		<result property="eventClass" column="EVENT_CLASS" />
+		<result property="eventStart" column="EVENT_START" />
+		<result property="eventEnd" column="EVENT_END" />
+		<result property="eventAttend" column="EVENT_ATTEND" />
+		<result property="eventLoc" column="EVENT_LOC" />
+		<result property="eventCont" column="EVENT_CONT" />
+		<result property="del" column="DEL" />     
+	</resultMap>
+	
+	<resultMap id = "champDetail" type="java.util.Map">
+		<result property="eventId" column="EVENT_ID" />
+		<result property="eventTitle" column="EVENT_TITLE" />
+		<result property="eventTeacher" column="EVENT_TEACHER" />
+		<result property="eventClass" column="EVENT_CLASS" />
+		<result property="eventStart" column="EVENT_START" />
+		<result property="eventEnd" column="EVENT_END" />
+		<result property="eventAttend" column="EVENT_ATTEND" />
+		<result property="eventLoc" column="EVENT_LOC" />
+		<result property="eventCont" column="EVENT_CONT" />
+		<result property="del" column="DEL" />
+	</resultMap>
+	
+	<resultMap id="seminarList" type="java.util.Map">
+		<result property="eventId" column="EVENT_ID" />
+		<result property="eventTitle" column="EVENT_TITLE" />
+		<result property="eventTeacher" column="EVENT_TEACHER" />
+		<result property="eventClass" column="EVENT_CLASS" />
+		<result property="eventStart" column="EVENT_START" />
+		<result property="eventEnd" column="EVENT_END" />
+		<result property="eventAttend" column="EVENT_ATTEND" />
+		<result property="eventLoc" column="EVENT_LOC" />
+		<result property="eventCont" column="EVENT_CONT" />
+		<result property="del" column="DEL" />        
+	</resultMap>
+	
+		<resultMap id="seminarMap" type="com.ohhoonim.vo.EventVo">
+		<result property="eventId" column="EVENT_ID"/>
+		<result property="eventTitle" column="EVENT_TITLE"/>
+		<result property="eventTeacher" column="EVENT_TEACHER"/>
+		<result property="eventClass" column="EVENT_CLASS"/>
+		<result property="eventStart" column="EVENT_START"/>
+		<result property="eventEnd" column="EVENT_END"/>
+		<result property="eventAttend" column="EVENT_ATTEND"/>
+		<result property="eventLoc" column="EVENT_LOC"/>     
+		<result property="eventCont" column="EVENT_CONT"/>     
+		<result property="del" column="DEL" />      
+	</resultMap>
+	
+	<resultMap id = "seminarDetail" type="java.util.Map">
+		<result property="eventId" column="EVENT_ID" />
+		<result property="eventTitle" column="EVENT_TITLE" />
+		<result property="eventTeacher" column="EVENT_TEACHER" />
+		<result property="eventClass" column="EVENT_CLASS" />
+		<result property="eventStart" column="EVENT_START" />
+		<result property="eventEnd" column="EVENT_END" />
+		<result property="eventAttend" column="EVENT_ATTEND" />
+		<result property="eventLoc" column="EVENT_LOC" />
+		<result property="eventCont" column="EVENT_CONT" />
+		<result property="del" column="DEL" />
+	</resultMap>
+	
+	
+	
+	<!-- 쿼리부 시작 -->
+	
+	<select id = "totalEventList" parameterType = "eventVo" resultMap = "event">
+		SELECT
+			EVENT_ID,
+			EVENT_TITLE,
+			EVENT_TEACHER,
+			EVENT_CLASS,
+			EVENT_START,
+			EVENT_END,
+			EVENT_ATTEND,
+			EVENT_LOC,
+			EVENT_CONT,
+			DEL
+			FROM EVENT
+			<where>
+			EVENT_ID LIKE '%SEN%'
+			<if test = "eventId != null"> 
+			AND EVENT_TITLE LIKE '%' || #{eventId} || '%'
+			</if>
+			</where>
+		ORDER BY EVENT_START DESC
+	</select>
+	
+	
+	  <select id="seminarDetail" parameterType="eventVo" resultMap="seminarDetail">
+		SELECT
+			EVENT_ID,
+			EVENT_TITLE,
+			EVENT_CLASS,
+			EVENT_START,
+			EVENT_END,
+			EVENT_ATTEND,
+			EVENT_LOC,
+			EVENT_CONT 
+			 (SELECT EVENT_ID,
+		    EVENT_TITLE,
+		    EVENT_CLASS,
+		    EVENT_START,
+		    EVENT_END,
+		    EVENT_ATTEND,
+		    EVENT_LOC,
+		    EVENT_CONT,
+		    LEAD(EVENT_ID) OVER(ORDER BY EVENT_ID) NEXT_EVENT,
+		    LAG(EVENT_ID) OVER(ORDER BY EVENT_ID) PREV_EVENT
+		  FROM EVENT
+		  WHERE EVENT_ID LIKE 'SEN%'
+		  ORDER BY EVENT_ID DESC
+		  )
+		WHERE EVENT_ID = #{eventId} 
+	</select> 
+	
+
+	<!-- 여기서부터 list paging실험 -->
+		
+ 	<sql id = "seminarListQuery">
+		SELECT 
+			EVENT_ID,
+			EVENT_TITLE,
+			EVENT_TEACHER,
+			EVENT_CLASS,
+			EVENT_START,
+			EVENT_END,
+			EVENT_ATTEND,
+			EVENT_LOC,
+			EVENT_CONT,
+			DEL
+			FROM EVENT
+		<where>
+			EVENT_ID LIKE 'SEN%'
+			<if test = "eventTitle != null"> 
+				AND EVENT_TITLE LIKE '%' || #{eventTitle} || '%'
+			</if>
+			AND DEL='N'
+		</where>
+			ORDER BY EVENT_START DESC
+	</sql>
+	
+	<select id = "seminarList2" resultMap ="seminarMap">
+		SELECT *
+		FROM(
+			SELECT ROWNUM AS RN, A.*
+			FROM (
+				<include refid="seminarListQuery"/>
+					
+			) A
+		)
+		<where>
+			<if test ="pageSize !=null and pageSize != '' and pageNo !=null and pageNo !=''">
+			ROWNUM <![CDATA[ <= ]]> #{pageSize, jdbcType=INTEGER}
+				AND RN <![CDATA[ > ]]> (#{pageNo, jdbcType=INTEGER}-1)*#{pageSize, jdbcType=INTEGER}
+			</if>
+		</where>
+	</select>
+	 
+	<select id = "seminarListCnt" resultType = "int">
+		SELECT COUNT(0) CNT FROM 
+			(
+				<include refid="seminarListQuery"/>
+			)
+	</select>
+	
+	<!-- seminar add -->
+	<insert id = "seminarAdd">
+		INSERT INTO EVENT(EVENT_ID, EVENT_TITLE, EVENT_TEACHER, EVENT_START, EVENT_END, EVENT_ATTEND, EVENT_LOC, EVENT_CONT,DEL)
+		VALUES (#{eventId},#{eventTitle},#{eventTeacher},#{eventStart},#{eventEnd},#{eventAttend},#{eventLoc},#{eventCont},#{del})
+	</insert>
+	
+	
+	<!-- 안쓰는데 일단 놔둠 -->
+	<select id="seminarList" parameterType="eventVo" resultMap="event">
+		SELECT 
+			EVENT_ID,
+			EVENT_TITLE,
+			EVENT_TEACHER,
+			EVENT_CLASS,
+			EVENT_START,
+			EVENT_END,
+			EVENT_ATTEND,
+			EVENT_LOC,
+			EVENT_CONT,
+			DEL
+		FROM EVENT
+		<where>
+				EVENT_ID LIKE 'SEN%'
+			<if test = "eventTitle != null"> 
+				AND EVENT_TITLE LIKE '%' || #{eventTitle} || '%'
+			</if>
+		</where>
+			ORDER BY EVENT_START DESC
+	</select>
+	<!-- 여기까지 -->
+	
+	
+	<sql id = "championshipListQuery">
+		SELECT 
+			EVENT_ID,
+			EVENT_TITLE,
+			EVENT_TEACHER,
+			EVENT_CLASS,
+			EVENT_START,
+			EVENT_END,
+			EVENT_ATTEND,
+			EVENT_LOC,
+			EVENT_CONT,
+			DEL
+			FROM EVENT
+		<where>
+			EVENT_ID LIKE 'CHP%'
+			<if test = "eventTitle != null"> 
+				AND EVENT_TITLE LIKE '%' || #{eventTitle} || '%'
+			</if>
+			AND DEL='N'
+		</where>
+			ORDER BY EVENT_START DESC
+	</sql>
+	
+	
+	
+	<select id="championshipList" resultMap="seminarMap">
+		SELECT *
+		FROM(
+			SELECT ROWNUM AS RN, A.*
+			FROM (
+				<include refid="championshipListQuery"/>
+					
+			) A
+		)
+		<where>
+			<if test ="pageSize !=null and pageSize != '' and pageNo !=null and pageNo !=''">
+			ROWNUM <![CDATA[ <= ]]> #{pageSize, jdbcType=INTEGER}
+				AND RN <![CDATA[ > ]]> (#{pageNo, jdbcType=INTEGER}-1)*#{pageSize, jdbcType=INTEGER}
+			</if>
+		</where>
+	</select>
+	 
+	<select id = "champListCnt" resultType = "int">
+		SELECT COUNT(0) CNT FROM (
+				<include refid="championshipListQuery"/>
+			)
+	</select>
+	
+	
+	<!-- championship Add -->
+	<insert id = "championshipAdd">
+		INSERT INTO EVENT(EVENT_ID, EVENT_TITLE, EVENT_TEACHER, EVENT_START,EVENT_END, EVENT_ATTEND, EVENT_LOC, EVENT_CONT,DEL)
+		VALUES (#{eventId},#{eventTitle},#{eventTeacher},#{eventStart},#{eventEnd},#{eventAttend},#{eventLoc},#{eventCont},#{del})
+	</insert>
+	
+	
+	<!-- championship detail -->
+	<select id="getChampDetail" parameterType="eventVo" resultMap="champDetail">
+		SELECT
+			EVENT_ID,
+			EVENT_TITLE,
+			EVENT_CLASS,
+			EVENT_START,
+			EVENT_END,
+			EVENT_ATTEND,
+			EVENT_LOC,
+			EVENT_CONT,
+			DEL
+		FROM EVENT
+		WHERE EVENT_ID = #{eventId}
+	</select> 
+	
+	<!-- seminar detail -->
+	<select id = "getSeminarDetail" parameterType="eventVo" resultMap="seminarDetail">
+		SELECT
+			EVENT_ID,
+			EVENT_TITLE,
+			EVENT_TEACHER,
+			EVENT_START,
+			EVENT_END,
+			EVENT_ATTEND,
+			EVENT_LOC,
+			EVENT_CONT,
+			DEL
+		FROM EVENT
+		WHERE EVENT_ID = #{eventId}
+	
+	</select>
+	
+	<!-- modify -->
+	<update id="championshipModify">
+		UPDATE EVENT
+		<set>
+			<if test="eventId != null">
+				EVENT_ID = #{eventId},
+			</if>
+			<if test="eventTitle != null">
+				EVENT_TITLE = #{eventTitle},
+			</if>
+			<if test="eventLoc != null">
+				EVENT_LOC = #{eventLoc},
+			</if>
+			<if test="eventClass != null">
+				EVENT_CLASS = #{eventClass},
+			</if>
+			<if test="eventStart != null">
+				EVENT_START = #{eventStart},
+			</if>
+			<if test="eventEnd != null">
+				EVENT_END = #{eventEnd},
+			</if>
+			<if test="eventCont != null">
+				EVENT_CONT = #{eventCont},
+			</if>
+			
+		</set>
+		WHERE
+		EVENT_ID = #{eventId}
+	</update>
+	
+	
+	
+	<!-- seminar modify -->
+	<update id="seminarModify">
+		UPDATE EVENT
+		<set>
+			<if test="eventId != null">
+				EVENT_ID = #{eventId},
+			</if>
+			<if test="eventTitle != null">
+				EVENT_TITLE = #{eventTitle},
+			</if>
+			<if test="eventLoc != null">
+				EVENT_LOC = #{eventLoc},
+			</if>
+			<if test="eventTeacher != null">
+				EVENT_TEACHER = #{eventTeacher},
+			</if>
+			<if test="eventStart != null">
+				EVENT_START = #{eventStart},
+			</if>
+			<if test="eventCont != null">
+				EVENT_CONT = #{eventCont},
+			</if>
+			
+		</set>
+		WHERE
+		EVENT_ID = #{eventId}
+	</update>
+	
+	<!--  delete  -->
+	
+	<update id="seminarDelete" >
+		UPDATE EVENT
+		SET DEL='Y'
+		WHERE EVENT_ID = #{eventId}
+		
+	</update>
+	
+	<update id="championshipDelete">
+		UPDATE EVENT
+		SET DEL='Y'
+		WHERE EVENT_ID = #{eventId}
+	</update>
+	
+	<resultMap id="scheduleList" type="java.util.Map">
+		<result property="title" column="TITLE" />
+		<result property="start" column="START_DT" />
+		<result property="end" column="END_DT" />
+		<result property="url" column="URL_ID" />
+		<result property="jobType" column="JOBTYPE" />
+	</resultMap>
+	
+	<select id="eventScheduleList" resultMap="scheduleList">
+		select 
+			TITLE
+			, START_DT
+			, (to_date(END_DT, 'YYYYMMDD') -  to_date('19700101', 'YYYYMMDD')) * 24*60*60  END_DT
+			, URL_ID
+			, JOBTYPE
+		from 
+		(
+		select 
+		    event_title TITLE
+		    , (to_date(event_start, 'YYYYMMDD') -  to_date('19700101', 'YYYYMMDD')) * 24*60*60  START_DT
+		    , nvl(event_end, event_start) END_DT
+		    , decode(substr(event_id, 1, 3) 
+		        , 'SEN', '/class202b/jiutopia/seminarDetail.do?eventId='
+		        , 'CHP', '/class202b/jiutopia/championshipDetail.do?eventId=') || event_id URL_ID
+		    , decode(substr(event_id, 1, 3), 'SEN', 's', 'CHP', 'f') JOBTYPE
+		from event
+		where 
+		    event_start is not null
+		    and substr(event_start, 1, 6) = #{month}
+		)
+	</select>
+
+</mapper>

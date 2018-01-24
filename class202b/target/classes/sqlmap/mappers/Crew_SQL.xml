@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="Crew">
+
+
+	<resultMap id="crewList" type="com.ohhoonim.vo.CrewVo">
+		<result property="crewId" column="CREW_ID" />
+		<result property="crewNm" column="CREW_NM" />
+		<result property="crewLoc" column="CREW_LOC" />
+		<result property="crewCont" column="CREW_CONT" />
+		<result property="del" column="DEL" />
+	</resultMap>
+
+	<select id="crewListView" parameterType="crewVo" resultMap="crewList">
+		SELECT CREW_NM
+		FROM CREW
+		<where>
+			CREW_NM LIKE '%' || #{crewNm} || '%'
+		</where>
+	</select>
+
+</mapper>

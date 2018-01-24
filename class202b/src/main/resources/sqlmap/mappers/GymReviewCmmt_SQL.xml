@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="GymReviewCmmt">
+
+	<resultMap id="" type="com.ohhoonim.vo.GymReviewCmmtVo">
+		<result property="gymReviewNo" column="GYM_REVIEW_NO" />
+		<result property="gymId" column="GYM_ID" />
+		<result property="memId" column="MEM_ID" />
+		<result property="cmmtId" column="CMMT_ID" />
+		<result property="cmmtCont" column="CMMT_CONT" />
+		<result property="cmmtWtime" column="CMMT_WTIME" />
+	</resultMap>
+
+</mapper>

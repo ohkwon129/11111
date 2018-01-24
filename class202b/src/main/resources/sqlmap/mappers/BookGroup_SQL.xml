@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="BookGroup">
+	
+<!-- 	북마크 그룹 리스트 -->
+	<resultMap id="bookGroupListView" type="java.util.Map" >
+		<result property="memId" 		column="memId"/>
+		<result property="groupNm"		column="groupNm"/>
+		<result property="videoTitle" 	column="videoTitle"/>
+	</resultMap>
+
+<!-- 	북마크 그룹 생성 -->
+	<insert id="bookGroupAdd" parameterType="bookGroupVo">
+		INSERT INTO BOOK_GROUP (
+			MEM_ID
+			, GROUP_ID
+			, GROUP_NM)
+		VALUES(
+			#{memId}
+			, #{groupId}
+			, #{groupNm})
+	</insert>
+	
+<!-- 	북마크 그룹 리스트 -->
+	<select id="bookGroupListView" parameterType="java.util.Map" resultMap="bookGroupListView">
+		SELECT MEM_ID, GROUP_ID, GROUP_NM
+		FROM BOOK_GROUP
+		WHERE MEM_ID = #{memId}
+	</select>
+	
+</mapper>

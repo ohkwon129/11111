@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="Gym">
+	<resultMap id="gymMap" type="com.ohhoonim.vo.GymVo">
+		<result property="gymId" column="GYM_ID" />
+		<result property="gymNm" column="GYM_NM" />
+		<result property="gymAdd" column="GYM_ADD" />
+		<result property="gymOwner" column="GYM_OWNER" />
+		<result property="gymTel" column="GYM_TEL" />
+		<result property="gymType" column="GYM_TYPE" />
+		<result property="gymCont" column="GYM_CONT" />
+		<result property="gymCnt" column="GYM_CNT" />
+		<result property="del" column="DEL" />
+	</resultMap>
+
+	<!-- List -->
+
+	<select id="gymListView" parameterType="gymVo" resultMap="gymMap">
+		SELECT GYM_NM, GYM_ID
+		FROM GYM
+		<where>
+			<if test="gymNm != null">
+				GYM_NM LIKE '%' || #{gymNm} || '%'
+			</if>
+		</where>
+		ORDER BY GYM_NM ASC
+	</select>
+
+	<select id="getGymById" resultMap="gymMap">
+		SELECT GYM_ID, GYM_NM,
+		GYM_ADD, GYM_OWNER, GYM_TEL, GYM_TYPE, GYM_CONT, GYM_CNT
+		FROM GYM
+		WHERE
+		GYM_ID = #{gymId}
+	</select>
+
+
+	<!-- modify -->
+	<update id="gymModify">
+		UPDATE GYM
+		<set>
+			<if test="gymId != null">
+				GYM_ID = #{gymId},
+			</if>
+			<if test="gymNm != null">
+				GYM_NM = #{gymNm},
+			</if>
+			<if test="gymAdd != null">
+				GYM_ADD = #{gymAdd},
+			</if>
+			<if test="gymOwner != null">
+				GYM_OWNER = #{gymOwner},
+			</if>
+			<if test="gymTel != null">
+				GYM_TEL = #{gymTel},
+			</if>
+			<if test="gymType != null">
+				GYM_TYPE = #{gymType},
+			</if>
+			<if test="gymCont != null">
+				GYM_CONT = #{gymCont},
+			</if>
+			<if test="gymCnt != null">
+				GYM_CNT = #{gymCnt},
+			</if>
+		</set>
+		WHERE
+		GYM_ID = #{gymId}
+	</update>
+
+	<!-- ADD -->
+	<insert id="gymAdd">
+		INSERT INTO GYM
+		(GYM_ID,GYM_NM,GYM_ADD,GYM_OWNER,GYM_TEL,GYM_TYPE,GYM_CONT,GYM_CNT)
+		VALUES(#{gymId}, #{gymNm}, #{gymAdd}, #{gymOwner},#{gymTel},
+		#{gymType}, #{gymCont}, #{gymCnt})
+
+	</insert>
+
+	<!-- del -->
+	<delete id="gymRemove" parameterType="GymVo">
+		DELETE GYM
+		WHERE GYM_ID = #{gymId}
+	</delete>
+</mapper>

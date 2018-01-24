@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="EVCmmt">
+
+	<resultMap id="cmmtList" type="com.ohhoonim.vo.EVCmmtVo">
+		<result property="memId" column="MEM_ID" />
+		<result property="cmmtId" column="CMMT_ID" />
+		<result property="cmmtCont" column="CMMT_CONT" />
+		<result property="cmmtWtime" column="CMMT_WTIME" />
+		<result property="videoId" column="VIDEO_ID" />
+		<result property="eventId" column="EVENT_ID" />
+	</resultMap>
+	
+	<!-- 비디오 댓글 목록 -->
+		<select id="videoCmmtList" parameterType="evcmmtVo" resultMap="cmmtList">
+			SELECT 
+				E.MEM_ID
+				, E.CMMT_ID
+				, E.CMMT_CONT
+				, E.CMMT_WTIME
+				, E.VIDEO_ID,
+				 V.VIDEO_ID
+			FROM 
+				CMMT E
+				, VIDEO V
+			<where>
+				E.VIDEO_ID = V.VIDEO_ID
+				AND E.VIDEO_ID = #{videoId}
+			</where>
+			order by E.CMMT_WTIME DESC
+		</select>
+	
+	<!-- 비디오 댓글 달기 -->
+		<insert id="videoCmmtAdd">
+		INSERT  INTO  CMMT(
+			MEM_ID
+			, CMMT_ID
+			, CMMT_CONT
+			, CMMT_WTIME
+			, VIDEO_ID) 
+		VALUES  (
+			#{memId}
+			, TO_CHAR(SYSTIMESTAMP, 'YY/MM/DD HH24:MI:SS:FF')
+			, #{cmmtCont}
+		 	, TO_CHAR(SYSTIMESTAMP, 'YY/MM/DD HH24:MI:SS:FF')
+		 	, #{videoId})
+	 	</insert>
+ 	
+ 	<!-- 비디오 댓글 삭제 -->
+	 	<delete id="videoCmmtDel">
+	 		DELETE CMMT
+	 		WHERE 
+	 			CMMT_ID = #{cmmtId} 
+	 			AND mem_id = #{memId}
+	 	</delete>
+ 	
+ 	<!-- 비디오 댓글 수정 -->
+	 	<update id="videoCmmtModify">
+	 		UPDATE CMMT
+	 		<set>
+				<if test="cmmtCont != null"> CMMT_CONT = #{cmmtCont}, </if>
+				<if test="cmmtWtime != null"> CMMT_WTIME = TO_CHAR(SYSTIMESTAMP, 'YY/MM/DD HH24:MI:SS:FF'), </if>
+				<if test="videoId != null"> VIDEO_ID = #{videoId} </if>
+	 		</set>
+	 		WHERE
+	 			MEM_ID = #{memId}
+	 			AND CMMT_ID = #{cmmtId}
+	 			AND VIDEO_ID = #{videoId}
+	 	</update>
+
+ 	<!-- 이벤트 댓글 출력 -->
+ 	<sql id = "eventCmmtQuery">
+ 		SELECT 
+			EV.MEM_ID, EV.CMMT_ID, EV.CMMT_CONT, EV.CMMT_WTIME, EV.VIDEO_ID, E.EVENT_ID
+		FROM 
+			CMMT EV, EVENT E
+		WHERE
+			EV.EVENT_ID = E.EVENT_ID
+			AND EV.EVENT_ID = #{eventId}
+ 	</sql>
+ 	<!-- 이벤트 댓글 리스트 -->
+ 	<select id="eventCmmtList" resultMap="cmmtList">
+		SELECT *
+			FROM(
+				SELECT ROWNUM AS RN, A.*
+			FROM (
+				<include refid ="eventCmmtQuery"/>
+				ORDER BY EV.CMMT_ID DESC
+				) A 
+			)
+		<where>
+			<if test ="pageSize !=null and pageSize != '' and pageNo !=null and pageNo !=''">
+			ROWNUM <![CDATA[ <= ]]> #{pageSize, jdbcType=INTEGER}
+				AND RN <![CDATA[ > ]]> (#{pageNo, jdbcType=INTEGER}-1)*#{pageSize, jdbcType=INTEGER}
+			</if>
+		</where> 
+	</select>
+	<!-- 이벤트댓글조회수 -->
+	<select id = "eventCmmtCnt" resultType="int">
+		SELECT COUNT(0) CNT FROM CMMT
+		<where>
+			<if test ="eventId!=null">
+				EVENT_ID LIKE '%' || #{eventId} || '%'
+			</if>
+		</where>
+	</select>
+ 	
+ 	<!-- 이벤트 댓글 입력 -->
+	<insert id="eventCmmtAdd">
+	INSERT  INTO  CMMT(
+		MEM_ID,  
+		CMMT_ID,  
+		CMMT_CONT,  
+		CMMT_WTIME, 
+		EVENT_ID) 
+	VALUES  (
+		#{memId},	
+		TO_CHAR(SYSTIMESTAMP, 'YY/MM/DD HH24:MI:SS:FF'),	
+		#{cmmtCont},
+	 	TO_CHAR(SYSTIMESTAMP, 'YY/MM/DD HH24:MI:SS:FF'),  
+	 	#{eventId})
+ 	</insert>
+ 	<!-- 이벤트 댓글 삭제 -->
+	 	<delete id="eventCmmtDel">
+	 		DELETE CMMT
+	 		WHERE CMMT_ID = #{cmmtId} AND MEM_ID = #{memId} AND EVENT_ID=#{eventId} 
+	 	</delete>
+ 	
+ 
+
+</mapper>

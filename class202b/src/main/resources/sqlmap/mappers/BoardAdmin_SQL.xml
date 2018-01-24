@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="BoardAdmin">
+
+<resultMap id="" type="com.ohhoonim.vo.BoardAdminVo">
+	<result property="boardAdminId" column="BOARD_ADMIN_ID" />
+</resultMap>
+
+</mapper>

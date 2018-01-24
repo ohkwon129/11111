@@ -1,0 +1,75 @@
+#toggle-sidebar {
+	float: left;
+	margin-top: 5px;
+	margin-left: 5px;
+}
+
+#myPage {
+	float: right;
+	margin-top: 5px;
+	margin-right: 5px;
+}
+
+#search {
+	float: right;
+	margin-top: 5px;
+	margin-right: 5px;
+}
+
+#wrap {
+	background-color: gray;
+}
+
+.nav-item {
+	list-style: none;
+}
+
+.topMenuLi2 {
+	list-style: none;
+}
+
+.topMenuLi3 {
+	list-style: none;
+}
+
+.submenu {
+	list-style: none;
+	display: inline-block;
+}
+
+
+.oo {
+	list-style: none;
+}
+
+h1 {
+	text-align: center;
+}
+
+header {
+	background-color: gray;
+	padding: 1px;
+}
+
+footer {
+	margin : 10px, 0px, 0px, 0px;
+	text-align: center;
+	background-color: gray;
+	padding: 3px;
+	clear: both;
+	vertical-align : middle;
+}
+.top{
+float : right;
+	padding-top: 0px;
+	padding-right: 10px;
+	padding-bottom: 0px;
+	padding-left: 0px;
+}
+ul{
+list-style:none;
+}
+#gubun{
+	clear : both;
+	margin : 5px, 0px, 0px, 0px;
+}

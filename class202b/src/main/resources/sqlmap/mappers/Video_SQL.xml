@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="Video">
+
+	<resultMap id="videoList" type="com.ohhoonim.vo.VideoVo">
+		<result property="videoId" column="VIDEO_ID" />
+		<result property="videoTitle" column="VIDEO_TITLE" />
+		<result property="videoCont" column="VIDEO_CONT" />
+		<result property="videoUrl" column="VIDEO_URL" />
+		<result property="videoWtime" column="VIDEO_WTIME" />
+		<result property="videoThumb" column="VIDEO_THUMB" />
+		<result property="del" column="DEL" />
+	</resultMap>
+	
+	<resultMap id="videoMap" type="java.util.Map">
+		<result property="videoId" column="VIDEO_ID" />
+		<result property="videoTitle" column="VIDEO_TITLE" />
+		<result property="videoCont" column="VIDEO_CONT" />
+		<result property="videoUrl" column="VIDEO_URL" />
+		<result property="videoWtime" column="VIDEO_WTIME" />
+		<result property="videoThumb" column="VIDEO_THUMB" />
+		<result property="del" column="DEL" />
+		<result property="memId" column="MEM_ID" />
+	</resultMap>
+	<!-- 비디오 목록 -->
+	<sql id="videoQuery">
+		SELECT VIDEO_ID, VIDEO_TITLE, VIDEO_THUMB
+		FROM VIDEO
+		<where>
+			VIDEO_TITLE LIKE '%' || #{videoTitle} || '%'
+			AND DEL = 'N'
+			<if test="videoType == 'SPT'">
+				AND VIDEO_ID LIKE 'SPT%'
+			</if>
+			<if test="videoType == 'DEF'">
+				AND VIDEO_ID LIKE 'DEF%'
+			</if>
+		</where>
+		ORDER BY VIDEO_WTIME DESC
+
+	</sql>
+	
+	<select  id="videoListView" parameterType="videoVo" resultMap="videoList">
+		SELECT *
+			FROM(
+				SELECT ROWNUM AS RN, A.*
+				FROM (
+					<include refid="videoQuery"/>
+						
+				) A
+			)
+		<where>
+			<if test ="pageSize !=null and pageSize != '' and pageNo !=null and pageNo !=''">
+			ROWNUM <![CDATA[ <= ]]> #{pageSize, jdbcType=INTEGER}
+				AND RN <![CDATA[ > ]]> (#{pageNo, jdbcType=INTEGER}-1)*#{pageSize, jdbcType=INTEGER}
+			</if>
+		</where>
+	</select>
+	
+	<select id = "videoListCnt" resultType = "int">
+		SELECT COUNT(0) CNT FROM 
+			(
+				<include refid="videoQuery"/>
+			)
+	</select>
+	
+	
+	<!-- 디테일 -->	
+	<select id="videoDetailView" resultMap="videoMap">
+		SELECT VIDEO_ID, VIDEO_TITLE, VIDEO_CONT, VIDEO_URL, VIDEO_WTIME, VIDEO_THUMB, DEL, MEM_ID
+		FROM VIDEO
+		WHERE
+			VIDEO_ID = #{videoId}
+			
+	</select>
+	<update id="videoDel">
+		update video
+		set del = 'Y'
+		where video_id = #{videoId}
+	</update>
+	
+</mapper>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="SerialNo">
+
+	<resultMap id="" type="com.ohhoonim.vo.SerialNoVo">
+		<result property="tableCtgr" column="TABLE_CTGR" />
+		<result property="nwNo" column="NW_NO" />
+	</resultMap>
+
+</mapper>

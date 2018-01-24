@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="Bookmark">
+
+<!-- 	 북마크 그룹에 추가된 게시물 목록 -->
+	<resultMap id="bookGroupViewMap" type="java.util.Map">
+		<result property="type" 	column="type"></result>
+		<result property="memId" 	column="mem_id"></result>
+		<result property="idx" 		column="idx"></result>
+		<result property="ctgr" 	column="ctgr"></result>
+		<result property="groupId" 	column="groupId"></result>
+		<result property="title" 	column="title"></result>
+		<result property="contId" 	column="contId"></result>
+		<result property="thumb" 	column="thumb"></result>
+		<result property="url" 		column="url"></result>
+		<result property="groupNm" 	column="groupNm"></result>
+	</resultMap>
+	
+<!-- 	 북마크 그룹 리스트 -->
+	<select id="bookGroupView" parameterType="java.util.Map" resultMap="bookGroupViewMap">
+		SELECT 
+			'주짓수 배우기' type
+			, B.MEM_ID memId
+			, B.IDX idx
+			, B.CTGR ctgr
+			, B.GROUP_ID groupId
+			, V.VIDEO_TITLE title
+			, V.VIDEO_ID contId
+			, V.VIDEO_THUMB thumb
+			, (${videoUrl} || B.CTGR) url 
+			, G.GROUP_NM groupNm
+		FROM 
+			BOOKMARK B, VIDEO V, BOOK_GROUP G
+		WHERE 
+			B.MEM_ID = #{memId}
+			AND B.CTGR = V.VIDEO_ID
+            AND B.GROUP_ID = G.GROUP_ID
+		UNION ALL
+		SELECT 
+			'이벤트' type
+			, B.MEM_ID memId
+			, B.IDX idx
+			, B.CTGR ctgr
+			, B.GROUP_ID groupId
+			, E.EVENT_TITLE title
+			, E.EVENT_ID contId
+			, '' thumb
+			,  (case 
+		            when INSTR(E.event_id,'SEN', 1) = 1  then ${seminarUrl} || B.CTGR 
+		            when INSTR(E.event_id,'CHP', 1) = 1  then ${championshipUrl} || B.CTGR 
+		        end ) url
+			, G.GROUP_NM groupNm
+		FROM 
+			BOOKMARK B, EVENT E, BOOK_GROUP G
+		WHERE 
+			B.MEM_ID = #{memId}
+			AND B.CTGR = E.EVENT_ID
+            AND B.GROUP_ID = G.GROUP_ID
+	</select>
+	
+	<!-- 북마크 추가 -->
+	<insert id="bookmarkAdd">
+		INSERT INTO BOOKMARK (
+			idx,
+			MEM_ID, 
+			CTGR, 
+			group_id)
+		VALUES (
+			seq_bookmark.nextval,
+			#{memId}, 
+			#{ctgr}, 
+			#{groupId})
+	</insert>
+	
+	<!-- 북마크 그룹에서 제거 -->
+	<update id="bookmarkDelFromGroup">
+		UPDATE BOOKMARK
+		SET GROUP_ID = '0001'
+		WHERE MEM_ID = #{memId} 
+			AND CTGR = #{ctgr}
+			AND GROUP_ID = #{groupId}
+			AND IDX = ${idx}
+	</update>
+	
+</mapper>

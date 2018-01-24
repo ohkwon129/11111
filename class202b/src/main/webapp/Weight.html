@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>체급정보</title>
+<link rel="StyleSheet" type="text/css" href="/class202b/css/main2_header.css">
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css"
+	integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb"
+	crossorigin="anonymous">
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+	integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+	crossorigin="anonymous"></script>
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js"
+	integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh"
+	crossorigin="anonymous"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js"
+	integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ"
+	crossorigin="anonymous"></script>
+<style>
+
+.dropdown-item {
+	tect-align: center;
+}
+</style>
+</head>
+<body>
+
+	<div id="search">
+		<a href="#"><img src="img/search.png" width="28" alt="검색" /></a>
+	</div>
+	<div id="myPage">
+		<a href="#"><img src="img/mypage.png" width="28" alt="My" /></a>
+	</div>
+	<header id="topMain">
+
+		<a class="homeName"> <font color="white">
+				<h1>주토피아</h1>
+		</font></a>
+
+	</header>
+	<nav class="navbar navbar-expand-lg navbar-light bg-light">
+		<button class="navbar-toggler" type="button" data-toggle="collapse"
+			data-target="#navbarSupportedContent"
+			aria-controls="navbarSupportedContent" aria-expanded="false"
+			aria-label="Toggle navigation">
+			<span class="navbar-toggler-icon"></span>
+		</button>
+
+		<div class="collapse navbar-collapse" id="navbarSupportedContent">
+			<ul class="navbar-nav ml-auto mr-auto">
+				<li class="nav-item dropdown"><a
+					class="nav-link dropdown-toggle" href="#" id="navbarDropdown"
+					role="button" data-toggle="dropdown" aria-haspopup="true"
+					aria-expanded="false"> 주짓수 정보 </a>
+					<div class="dropdown-menu" aria-labelledby="navbarDropdown">
+						<a class="dropdown-item" href="#">유래</a> <a class="dropdown-item"
+							href="#">띠</a> <a class="dropdown-item" href="#">체급</a>
+					</div></li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+				<li class="nav-item dropdown"><a
+					class="nav-link dropdown-toggle" href="#" id="navbarDropdown"
+					role="button" data-toggle="dropdown" aria-haspopup="true"
+					aria-expanded="false"> 주짓수 소식 </a>
+					<div class="dropdown-menu" aria-labelledby="navbarDropdown">
+						<a class="dropdown-item" href="month1.html">대회/세니마 정보</a>
+					</div></li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+				<li class="nav-item dropdown"><a
+					class="nav-link dropdown-toggle" href="#" id="navbarDropdown"
+					role="button" data-toggle="dropdown" aria-haspopup="true"
+					aria-expanded="false"> 커뮤니티 </a>
+					<div class="dropdown-menu" aria-labelledby="navbarDropdown">
+						<a class="dropdown-item" href="Movie.html">주짓수 배우기</a> <a
+							class="dropdown-item" href="Gym.html">체육관 정보</a> <a
+							class="dropdown-item" href="Club.html">동호회 정보</a>
+					</div></li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+			</ul>
+		</div>
+	</nav>
+
+	<div style="background-color:red">
+		<div class="photoslider" id="default"></div> 
+	</div>
+	
+	
+<link rel="stylesheet" type="text/css" media="screen" href="/class202b/css/photoslider.css" />  
+<script type="text/javascript" src="/class202b/js/photoslider.js"></script> 
+ 
+  
+<script type="text/javascript">  
+$(document).ready(function(){  
+    //change the 'baseURL' to reflect the host and or path to your images  
+    FOTO.Slider.baseURL = 'http://localhost:8080/class202b/img/slide/';  
+  
+    //set images by filling our bucket directly  
+    FOTO.Slider.bucket = {  
+        'default': {  
+        	0: {'thumb': 't_0.jpg', 'main': '0.jpg', 'caption': 'asdadasd'},  
+        	1: {'thumb': 't_1.jpg', 'main': '1.jpg'}  ,
+            2: {'thumb': 't_2.jpg', 'main': '2.jpg', 'caption': 'Trash the Dress'},  
+            3: {'thumb': 't_3.jpg', 'main': '3.jpg'}  ,
+            4: {'thumb': 't_4.jpg', 'main': '4.jpg'}  
+        }  ,
+        'main-img': {'width': '800px', 'height': '450px' }//this.bucket['main-img']
+    };  
+  
+    //or set our images by the bucket importer  
+    var ids = new Array(0,1,2,3,4);  
+    FOTO.Slider.importBucketFromIds('default',ids);  
+    
+    FOTO.Slider.reload('default'); 
+    //FOTO.Slider.enableSlideshow('default');  
+    //automatically play  
+	FOTO.Slider.play('default');  
+});  
+</script> 
+</body>
+</html>

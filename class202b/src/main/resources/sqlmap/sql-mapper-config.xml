@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd">
+
+<configuration>
+	<typeAliases>
+		<typeAlias alias="adminVo" type="com.ohhoonim.vo.AdminVo"/>
+		
+		<typeAlias alias="boardAdminVo" type="com.ohhoonim.vo.BoardAdminVo"/>
+		
+		<typeAlias alias="bookGroupVo" type="com.ohhoonim.vo.BookGroupVo"/>
+		<typeAlias alias="bookmarkVo" type="com.ohhoonim.vo.BookmarkVo"/>
+
+		<typeAlias alias="codeVo" type="com.ohhoonim.vo.CodeVo"/>
+		
+		<typeAlias alias="crewVo" type="com.ohhoonim.vo.CrewVo"/>
+		<typeAlias alias="crewBoardVo" type="com.ohhoonim.vo.CrewBoardVo"/>
+		<typeAlias alias="crewBoardLikeVo" type="com.ohhoonim.vo.CrewBoardLikeVo"/>
+		<typeAlias alias="crewBoardCmmtVo" type="com.ohhoonim.vo.CrewBoardCmmtVo"/>
+		
+		<typeAlias alias="evcmmtVo" type="com.ohhoonim.vo.EVCmmtVo"/>
+		
+		<typeAlias alias="eventVo" type="com.ohhoonim.vo.EventVo"/>
+		
+		<typeAlias alias="fileTableVo" type="com.ohhoonim.vo.FileTableVo"/>
+		
+		<typeAlias alias="gymVo" type="com.ohhoonim.vo.GymVo"/>
+		<typeAlias alias="gymReviewVo" type="com.ohhoonim.vo.GymReviewVo"/>
+		<typeAlias alias="gymReviewLikeVo" type="com.ohhoonim.vo.GymReviewLikeVo"/>
+		<typeAlias alias="gymReviewCmmtVo" type="com.ohhoonim.vo.GymReviewCmmtVo"/>
+		
+		<typeAlias alias="memberVo" type="com.ohhoonim.vo.MemberVo"/>
+		
+		<typeAlias alias="serialNoVo" type="com.ohhoonim.vo.SerialNoVo"/>
+		
+		<typeAlias alias="videoVo" type="com.ohhoonim.vo.VideoVo"/>
+		
+		<typeAlias alias="filesVo" type="com.ohhoonim.vo.FilesVo"/>
+		<typeAlias alias="boardVo" type="com.ohhoonim.vo.BoardVo"/>
+		<typeAlias alias="pageVo" type="com.ohhoonim.vo.PageVo"/>
+	</typeAliases>
+</configuration>
