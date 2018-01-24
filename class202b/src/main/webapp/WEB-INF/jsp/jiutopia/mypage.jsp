@@ -18,14 +18,16 @@
 	<title>마이 페이지</title>
 	
 	<style>
-	fieldset {
-		margin-bottom: 20px;
-	}
-	legend {
-		padding: 10px 10px;
-		width: 300px;
-		background-color: gray;
-	}
+		fieldset {
+			margin-bottom: 20px;
+		}
+		
+		legend {
+			padding: 10px 10px;
+			width: 300px;
+			background-color: gray;
+		}
+		
 		 * {
 		    margin: 0;
 		    padding: 0;
@@ -41,7 +43,7 @@
 		#topMain {
 			background-color: grey;
 			width: 100%; 
-			height: 70px;
+			height: 85px;
 			text-align: center;
 		}
 		
@@ -129,13 +131,13 @@
 				
 				for(int i = 0; i < listSize; i++) {
 					Map<String, Object> row = groupList.get(i);
+					String gName = row.get("groupNm") == null? "": row.get("groupNm").toString(); 
 			    	if(i == 0) { 
 					%>
 					<fieldset class="myGroup">
 						<legend><%=row.get("groupNm") == null ? "미분류" : row.get("groupNm") %></legend>
 						<!-- 그룹 삭제 버튼 -->
-						<% String gName = row.get("groupNm") == null? "": row.get("groupNm").toString(); 
-						   if (gName.length() > 0) { %>
+						<% if (gName.length() > 0) { %>
 								<form action="<%=contextPath%>/jiutopia/bookGroupDel.do" method="post">
 									<input type="hidden" name="memId" value="<%=id%>">
 									<input type="hidden" name="groupId" value="<%=row.get("groupId")%>">
@@ -152,8 +154,7 @@
 							<p><%=row.get("title")%><p>
 							
 						<!-- 그룹에 속한 경우만 '그룹에서 제거' 버튼 표시 -->
-							<% String gName = row.get("groupNm") == null? "": row.get("groupNm").toString(); 
-							   if (gName.length() > 0) { %>
+							<% if (gName.length() > 0) { %>
 								<form action="<%=contextPath%>/jiutopia/bookmarkDelFromGroup.do" method="post">
 									<input type="hidden" name="memId" value="<%=id%>">
 									<input type="hidden" name="ctgr" value="<%=row.get("ctgr")%>">

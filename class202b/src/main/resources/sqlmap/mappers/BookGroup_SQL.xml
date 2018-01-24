@@ -29,4 +29,12 @@
 		WHERE MEM_ID = #{memId}
 	</select>
 	
+<!-- 	북마크 그룹 삭제 -->
+	<delete id="bookGroupDel">
+		DELETE FROM BOOK_GROUP
+		WHERE 
+		    MEM_ID = #{memId}
+		    AND GROUP_ID = #{groupId} 
+	</delete>
+	
 </mapper>

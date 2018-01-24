@@ -5,36 +5,31 @@
 	String id = request.getParameter("id");
 %>
 
-	<div id="search">
-		<a href=""><img src="<%=contextPath%>/img/search.png" width="28"alt="검색" /></a>
-	</div>
-	
-	<div id="myPage">
-		<!-- 
-		<a href="<%=contextPath%>/jiutopia/loginView.do"><img src="<%=contextPath%>/img/mypage.png" width="28" alt="My" /></a>
-	 -->
-		<%
-			if (!isLogined) {
-		%>
-		<a href="<%=contextPath%>/jiutopia/loginView.do">로그인</a>
-		<%
-			} else {
-		%>
-		
-		<a href="<%=contextPath%>/jiutopia/mypage.do?memId=<%=id%>">마이페이지</a>
-		<a href="<%=contextPath%>/jiutopia/logout.do">로그아웃</a>
-		
-		<%
-			}
-		%>
-	</div>
-
 	<!-- 제목 -->
 	<header id="topMain">
 		<div id="homeName">
 			<a href="<%=contextPath%>/jiutopia/main.do"> 
-				<font color="white" size="5">주토피아</font>
+				<font color="white" size="6">주토피아</font>
 			</a>
+		</div>
+		
+		<div id="search">
+			<a href=""><img src="<%=contextPath%>/img/search.png" width="28"alt="검색" /></a>
+		</div>
+		
+		<div id="myPage">
+			<%
+				if (!isLogined) {
+			%>
+					<a href="<%=contextPath%>/jiutopia/loginView.do">로그인</a>
+			<%
+				} else {
+			%>
+					<a href="<%=contextPath%>/jiutopia/mypage.do?memId=<%=id%>">마이페이지</a>
+					<a href="<%=contextPath%>/jiutopia/logout.do">로그아웃</a>
+			<%
+				}
+			%>
 		</div>
 	</header>
 	

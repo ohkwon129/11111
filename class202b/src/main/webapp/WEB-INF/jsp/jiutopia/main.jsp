@@ -26,7 +26,13 @@
 		crossorigin="anonymous"></script>
 
 	<style>
-		
+		/* 		타이틀 메인페이지 링크 */
+		#topMain {
+			background-color: grey;
+			width: 100%; 
+			height: 85px;
+			text-align: center;
+		}
 	</style>
 
 </head>
