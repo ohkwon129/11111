@@ -34,7 +34,7 @@
 		DELETE FROM BOOK_GROUP
 		WHERE 
 		    MEM_ID = #{memId}
-		    AND GROUP_ID = #{groupId} 
+		    AND GROUP_ID = #{groupId}
 	</delete>
 	
 </mapper>
