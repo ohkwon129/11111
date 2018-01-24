@@ -20,8 +20,14 @@ public class BookGroupDao extends Mapper{
 		return selectOne("getGroupId", memId);
 	}
 
-	public List<Map<String, String>> bookGroupListView(String memId) {
-		return selectList("bookGroupListView", memId);
+//	북마크 그룹 리스트
+	public List<Map<String, String>> bookGroupListView(BookGroupVo vo) {
+		return selectList("bookGroupListView", vo);
+	}
+
+//	북마크 그룹 제거
+	public int bookGroupDel(BookGroupVo vo) {
+		return delete("bookGroupDel", vo);
 	}
 
 

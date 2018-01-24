@@ -77,12 +77,12 @@ public class MyPageController {
 			return "redirect:/jiutopia/bookGroupAddPop.do";
 		} else {
 
-		String groupId = idGenService.bookGroupIdGen(memId);
+		String idx = idGenService.bookGroupIdGen(memId);
 		
 		BookGroupVo vo = new BookGroupVo();
 		
 		vo.setMemId(memId);
-		vo.setGroupId(groupId);
+		vo.setIdx(idx);
 		vo.setGroupNm(groupNm);
 		
 		bookGroupService.bookGroupAdd(vo);
@@ -91,14 +91,21 @@ public class MyPageController {
 		
 		return "redirect:/jiutopia/mypage.do?memId=" + memId;
 	}
+	
 //	북마크 그룹 제거
 	@RequestMapping("bookGroupDel.do")
 	public String bookGroupDel(@RequestParam Map<String, String> req, ModelMap model) {
 				
 		String memId = req.get("memId");
-		String groupId = req.get("groupId");
+		String idx = req.get("idx");
 		
+		BookGroupVo vo = new BookGroupVo();
 		
+		vo.setMemId(memId);
+		vo.setIdx(idx);
+
+		bookmarkService.bookGroupDel(vo);
+		bookGroupService.bookGroupDel(vo);
 		
 		return "redirect:/jiutopia/mypage.do?memId=" + memId;
 	}
@@ -107,11 +114,14 @@ public class MyPageController {
 	@RequestMapping("addIntoBookGroupPop.do")
 	public String bookmarkAddIntoPop(@RequestParam Map<String, String> req, ModelMap model) {
 		
-		String memId = req.get("memId");
+		String id = req.get("memId");
+
+		BookGroupVo vo = new BookGroupVo();
+		vo.setMemId(id);
 		
-		List<Map<String, String>> bookGroupListView = bookGroupService.bookGroupListView(memId);
+		List<Map<String, String>> bookGroupList = bookGroupService.bookGroupListView(vo);
 		
-		model.addAttribute("bookGroupListView", bookGroupListView);
+		model.addAttribute("bookGroupList", bookGroupList);
 		
 		return "jiutopia/addIntoBookGroupPop";
 	}
@@ -120,12 +130,12 @@ public class MyPageController {
 
 		String memId = req.get("memId");
 		String ctgr = req.get("ctgr");
-		String groupId = req.get("groupId");
+		String idx = req.get("idx");
 		
 		BookmarkVo vo = new BookmarkVo();
 		
 		vo.setMemId(memId);
-		vo.setGroupId(groupId);
+		vo.setIdx(idx);
 		vo.setCtgr(ctgr);
 		
 		bookmarkService.addIntoBookGroup(vo);
@@ -139,20 +149,18 @@ public class MyPageController {
 	
 		String memId = req.get("memId") == null? "": (String) req.get("memId");
 		String ctgr = req.get("ctgr") == null? "": (String) req.get("ctgr");
-		String groupId = req.get("groupId") == null? "": (String) req.get("groupId");
-		
-		String idxString = req.get("idx") == null? "": (String) req.get("idx");
-		int idx = Integer.parseInt(idxString);
+		String idx = req.get("idx") == null? "": (String) req.get("idx");
 		
 		BookmarkVo vo = new BookmarkVo();
 		vo.setMemId(memId);
 		vo.setCtgr(ctgr);
-		vo.setGroupId(groupId);
 		vo.setIdx(idx);
 		
 		bookmarkService.bookmarkDelFromGroup(vo);
 		
 		return "redirect:/jiutopia/mypage.do?memId=" + memId;
 	}
+
+//	TODO 즐겨찾기 해제
 
 }

@@ -3,16 +3,7 @@ package com.ohhoonim.vo;
 public class BookmarkVo {
 	private String memId;
 	private String ctgr;
-	private String groupId;
-	private String groupNm;
-	private int idx;
-	
-	public String getCtgr() {
-		return ctgr;
-	}
-	public void setCtgr(String ctgr) {
-		this.ctgr = ctgr;
-	}
+	private String idx;
 	
 	public String getMemId() {
 		return memId;
@@ -21,26 +12,18 @@ public class BookmarkVo {
 		this.memId = memId;
 	}
 	
-	public String getGroupId() {
-		return groupId;
+	public String getCtgr() {
+		return ctgr;
 	}
-	public void setGroupId(String groupId) {
-		this.groupId = groupId;
-	}
-	
-	public String getGroupNm() {
-		return groupNm;
-	}
-	public void setGroupNm(String groupNm) {
-		this.groupNm = groupNm;
+	public void setCtgr(String ctgr) {
+		this.ctgr = ctgr;
 	}
 	
-	public int getIdx() {
+	public String getIdx() {
 		return idx;
 	}
-	public void setIdx(int idx) {
+	public void setIdx(String idx) {
 		this.idx = idx;
 	}
-	
 	
 }

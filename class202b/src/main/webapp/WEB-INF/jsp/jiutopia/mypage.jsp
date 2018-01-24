@@ -131,16 +131,16 @@
 				
 				for(int i = 0; i < listSize; i++) {
 					Map<String, Object> row = groupList.get(i);
-					String gName = row.get("groupNm") == null? "": row.get("groupNm").toString(); 
+					String gName = row.get("idx") == null? "": row.get("idx").toString(); 
 			    	if(i == 0) { 
 					%>
 					<fieldset class="myGroup">
 						<legend><%=row.get("groupNm") == null ? "미분류" : row.get("groupNm") %></legend>
 						<!-- 그룹 삭제 버튼 -->
-						<% if (gName.length() > 0) { %>
+						<% if (!gName.equals("9999")) { %>
 								<form action="<%=contextPath%>/jiutopia/bookGroupDel.do" method="post">
 									<input type="hidden" name="memId" value="<%=id%>">
-									<input type="hidden" name="groupId" value="<%=row.get("groupId")%>">
+									<input type="hidden" name="idx" value="<%=row.get("idx")%>">
 									<input type="submit" value="그룹 제거" class="button">
 								</form>
 						<% } %>
@@ -154,13 +154,21 @@
 							<p><%=row.get("title")%><p>
 							
 						<!-- 그룹에 속한 경우만 '그룹에서 제거' 버튼 표시 -->
-							<% if (gName.length() > 0) { %>
+							<% if (!gName.equals("9999")) { %>
 								<form action="<%=contextPath%>/jiutopia/bookmarkDelFromGroup.do" method="post">
 									<input type="hidden" name="memId" value="<%=id%>">
 									<input type="hidden" name="ctgr" value="<%=row.get("ctgr")%>">
-									<input type="hidden" name="groupId" value="<%=row.get("groupId")%>">
 									<input type="hidden" name="idx" value="<%=row.get("idx")%>">
-									<input type="submit" name="bookmarkDel" value="그룹에서 제거" class="button">
+									<input type="submit" name="bookmarkDelFromG" value="그룹에서 제거" class="button">
+								</form>
+							<% } %>
+							
+						<!-- 미분류 그룹 그룹에 추가하기 -->
+							<% if (gName.equals("9999")) { %>
+								<form name="addGroupForm" action="" method="get">
+									<input type="hidden" name="memId" value="<%=id%>" readonly>
+									<input type="hidden" name="ctgr" value="<%=row.get("ctgr")%>" readonly>
+									<input type="button" name="addIntoBookGroup" value="그룹에 추가" class="button" onClick="openGroupPop(this);">
 								</form>
 							<% } %>
 							
@@ -168,7 +176,6 @@
 								<form action="<%=contextPath%>/jiutopia/bookmarkDelFromGroup.do" method="post">
 									<input type="hidden" name="memId" value="<%=id%>">
 									<input type="hidden" name="ctgr" value="<%=row.get("ctgr")%>">
-									<input type="hidden" name="groupId" value="<%=row.get("groupId")%>">
 									<input type="hidden" name="idx" value="<%=row.get("idx")%>">
 									<input type="submit" name="bookmarkDel" value="즐겨찾기 해제" class="button">
 								</form>
@@ -203,6 +210,8 @@
 </body>
 
 <script>
+
+// 	북마크 그룹 추가 팝업
 	function openPop(){
 		var X = (window.screen.width/2)-(400/2);
 		var Y = (window.screen.height/2)-(300/2);
@@ -210,6 +219,20 @@
 		window.open('<%=contextPath%>/jiutopia/bookGroupAddPop.do', 'popUp', 'width=500px, height=300px, left='+X+', top='+Y+'');
 		document.getElementsByName('bookGroupAdd').submit();
 	}
+	
+// 	북마크 그룹에 즐겨찾기 게시물 추가 팝업
+	function openGroupPop(obj){
+		
+		var X = (window.screen.width/2)-(400/2);
+		var Y = (window.screen.height/2)-(300/2);
+		var frm = $(obj).parent();
+		
+		var memId = $(obj).parent().find('input[name="memId"]').val();
+		var ctgr = $(obj).parent().find('input[name="ctgr"]').val();
+		
+		window.open('<%=contextPath%>/jiutopia/addIntoBookGroupPop.do?memId='+memId+'&ctgr='+ctgr, 'popUp', 'width=500px, height=300px, left='+X+', top='+Y+'');
+	}
+	
 
 </script>
 

@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.ohhoonim.dao.BookmarkDao;
 import com.ohhoonim.jiutopia.service.BookmarkService;
+import com.ohhoonim.vo.BookGroupVo;
 import com.ohhoonim.vo.BookmarkVo;
 
 @Service("bookmarkService")
@@ -39,5 +40,11 @@ public class BookmarkServiceImpl implements BookmarkService{
 	@Override
 	public int addIntoBookGroup(BookmarkVo vo) {
 		return dao.addIntoBookGroup(vo);
+	}
+
+//	북마크 그룹 제거
+	@Override
+	public int bookGroupDel(BookGroupVo vo) {
+		return dao.bookGroupDel(vo);
 	}
 }

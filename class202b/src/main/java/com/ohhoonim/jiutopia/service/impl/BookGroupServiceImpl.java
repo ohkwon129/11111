@@ -24,11 +24,6 @@ public class BookGroupServiceImpl implements BookGroupService{
 		return dao.bookGroupAdd(vo);
 	}
 	
-	@Override
-	public List<Map<String, String>> bookGroupListView(String memId) {
-		return dao.bookGroupListView(memId);
-	}
-	
 //	북마크 아이디 생성
 	@Override
 	public String bookGroupIdGen(String memId) {
@@ -49,6 +44,18 @@ public class BookGroupServiceImpl implements BookGroupService{
 			}
 		}
 		return sb.toString();
+	}
+
+//	북마크 그룹 제거
+	@Override
+	public int bookGroupDel(BookGroupVo vo) {
+		return dao.bookGroupDel(vo);
+	}
+
+//	북마크 그룹 리스트
+	@Override
+	public List<Map<String, String>> bookGroupListView(BookGroupVo vo) {
+		return dao.bookGroupListView(vo);
 	}
 	
 

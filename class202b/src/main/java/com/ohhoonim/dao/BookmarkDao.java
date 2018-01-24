@@ -5,6 +5,7 @@ import java.util.Map;
 
 import org.springframework.stereotype.Repository;
 
+import com.ohhoonim.vo.BookGroupVo;
 import com.ohhoonim.vo.BookmarkVo;
 
 @Repository("bookmarkDao")
@@ -28,6 +29,11 @@ public class BookmarkDao extends Mapper{
 //	북마크 그룹에 추가
 	public int addIntoBookGroup(BookmarkVo vo) {
 		return update("addIntoBookGroup", vo);
+	}
+
+//	북마크 그룹 제거
+	public int bookGroupDel(BookGroupVo vo) {
+		return delete("bookmarkGroupDel", vo);
 	}
 	
 }

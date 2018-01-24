@@ -38,9 +38,9 @@ public class IdGenServiceImpl implements IdGenService {
 		String groupNo = idGenDao.getGroupNo(memId);
 		idGenDao.updateGroupNo(memId);
 		
-		String groupId = Utils.fixedNumber(groupNo, 4);
+		String idx = Utils.fixedNumber(groupNo, 4);
 		
-		return groupId;
+		return idx;
 	}
 }
 

@@ -217,7 +217,7 @@ public class Utils {
 		Map<String, List<Map<String, Object>>> groupedList = new HashMap<String, List<Map<String, Object>>>();
 		
 		for(Map<String, Object> item: list) {
-			String groupId = item.get("groupId").toString() == null? "": item.get("groupId").toString();
+			String groupId = item.get("idx").toString() == null? "": item.get("idx").toString();
 //			if (groupId == null || groupId.length() == 0) {
 //				groupId = "unsorted";
 //			}

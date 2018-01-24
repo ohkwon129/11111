@@ -2,7 +2,7 @@ package com.ohhoonim.vo;
 
 public class BookGroupVo {
 	private String memId;
-	private String groupId;
+	private String idx;
 	private String groupNm;
 	
 	
@@ -13,11 +13,11 @@ public class BookGroupVo {
 		this.memId = memId;
 	}
 	
-	public String getGroupId() {
-		return groupId;
+	public String getIdx() {
+		return idx;
 	}
-	public void setGroupId(String groupId) {
-		this.groupId = groupId;
+	public void setIdx(String idx) {
+		this.idx = idx;
 	}
 	
 	public String getGroupNm() {
