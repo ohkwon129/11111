@@ -130,7 +130,7 @@
 			    	if(i == 0) { 
 					%>
 					<fieldset class="myGroup">
-						<legend><%=row.get("groupNm") == null ? "미분류" : row.get("groupNm") %></legend>
+						<legend><%=row.get("groupNm")%></legend>
 						<!-- 그룹 삭제 버튼 -->
 						<% if (!gName.equals("9999")) { %>
 								<form action="<%=contextPath%>/jiutopia/bookGroupDel.do" method="post">
@@ -210,7 +210,7 @@
 		var Y = (window.screen.height/2)-(300/2);
 		
 		window.open('<%=contextPath%>/jiutopia/bookGroupAddPop.do', 'popUp', 'width=500px, height=300px, left='+X+', top='+Y+'');
-		document.getElementsByName('bookGroupAdd').submit();
+		
 	}
 	
 // 	북마크 그룹에 즐겨찾기 게시물 추가 팝업

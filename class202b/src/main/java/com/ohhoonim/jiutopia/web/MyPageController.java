@@ -59,7 +59,7 @@ public class MyPageController {
 		return "jiutopia/bookGroupAddPop";
 	}
 	@RequestMapping("bookGroupAdd.do")
-	public String bookGruopAdd(@RequestParam Map<String, String> req, RedirectAttributes redirectAttr) {
+	public String bookGruopAdd(@RequestParam Map<String, String> req, ModelMap model) {
 		
 		String memId = req.get("memId");
 		String groupNm = req.get("groupNm") == null? "": req.get("groupNm");
@@ -70,9 +70,6 @@ public class MyPageController {
 			Map<String, String> groupName = new HashMap<String, String>();
 			
 			groupName.put("msg", msg);
-			groupName.put("groupNm", groupNm);
-			
-			redirectAttr.addFlashAttribute("groupName", groupName);
 			
 			return "redirect:/jiutopia/bookGroupAddPop.do";
 		} else {
@@ -89,7 +86,7 @@ public class MyPageController {
 		
 		}
 		
-		return "redirect:/jiutopia/mypage.do?memId=" + memId;
+		return "redirect:/jiutopia/mypage.do?memId="+memId;
 	}
 	
 //	북마크 그룹 제거
@@ -124,6 +121,51 @@ public class MyPageController {
 		model.addAttribute("bookGroupList", bookGroupList);
 		
 		return "jiutopia/addIntoBookGroupPop";
+	}
+	@RequestMapping("addIntoBookGroupAdd.do")
+	public String addIntoBookGroupAdd(@RequestParam Map<String, String> req, ModelMap model) {
+		
+		String rtnUrl = "jiutopia/addIntoBookGroupPop";
+		
+		String memId = req.get("memId");
+		String bookedId = req.get("bookedId");
+		String groupNm = req.get("groupNm") == null? "": req.get("groupNm");
+		
+		BookGroupVo vo = new BookGroupVo();
+		vo.setMemId(memId);
+		
+		List<Map<String, String>> bookGroupList = bookGroupService.bookGroupListView(vo);
+
+		if (groupNm.equals("")) {
+			String msg = "그룹명을 입력해 주세요.";
+			
+			Map<String, String> groupName = new HashMap<String, String>();
+			
+			groupName.put("msg", msg);
+			
+			model.addAttribute("groupName", groupName);
+			model.addAttribute("bookGroupList", bookGroupList);
+			
+			return rtnUrl;
+		} else {
+
+		String idx = idGenService.bookGroupIdGen(memId);
+		
+		vo = new BookGroupVo();
+		
+		vo.setMemId(memId);
+		vo.setIdx(idx);
+		vo.setGroupNm(groupNm);
+		
+		bookGroupService.bookGroupAdd(vo);
+	
+		vo = new BookGroupVo();
+		vo.setMemId(memId);
+		
+		model.addAttribute("bookGroupList", bookGroupList);
+		
+		}
+		return rtnUrl;
 	}
 	@RequestMapping("addIntoBookGroup.do")
 	public String addIntoBookGroup(@RequestParam Map<String, String> req, ModelMap model) {

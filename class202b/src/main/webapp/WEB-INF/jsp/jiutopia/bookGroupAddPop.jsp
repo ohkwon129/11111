@@ -24,9 +24,20 @@
 	<script src="<%=contextPath %>/js/jquery-3.1.1.min.js"></script>
 	<script>
 		$(function(){
-			if ('<%=msg%>'.length > 0) {
-				alert('<%=msg%>');		
-			}
+			$('#btnAdd').click(function(){
+				$('#frm').submit();
+				
+				opener.location.href="<%=contextPath%>/jiutopia/mypage.do?memId=<%=id%>";
+				
+				$(function(){
+					if ('<%=msg%>'.length > 0) {
+						alert('<%=msg%>');		
+					} else if ('<%=msg%>'.length == 0) {
+						window.close();
+					}
+				});
+				
+			});
 		});
 	</script>
 	
@@ -36,13 +47,11 @@
 <!-- 	북마크 그룹 명 입력 -->
 	<div id="bookGroupAdd">
 		<p>북마크 그룹 추가하기</p>
-		<form action="<%=contextPath%>/jiutopia/bookGroupAdd.do" method="post">
+		<form id="frm" action="<%=contextPath%>/jiutopia/bookGroupAdd.do" method="post">
 			<input type="hidden" name="memId" value="<%=id%>" readonly>
 			<input type="text" name="groupNm" value="<%=groupNm %>" placeholder="추가할 그룹명 입력">
-			<input type="submit" value="그룹생성">
+			<input type="button" id="btnAdd" value="그룹생성">
 		</form>
 	</div>
-
-
 </body>
 </html>

@@ -33,7 +33,7 @@ public class BookmarkDao extends Mapper{
 
 //	북마크 그룹 제거
 	public int bookGroupDel(BookGroupVo vo) {
-		return delete("bookmarkGroupDel", vo);
+		return update("bookmarkGroupDel", vo);
 	}
 
 //	즐겨찾기 해제

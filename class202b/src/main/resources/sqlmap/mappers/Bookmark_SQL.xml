@@ -118,12 +118,12 @@
 	</update>
 	
 	<!-- 북마크 그룹 제거 -->
-	<delete id="bookmarkGroupDel">
+	<update id="bookmarkGroupDel">
 		 UPDATE BOOKMARK
 		 SET IDX = NULL
 		 WHERE MEM_ID = #{memId}
 		     AND IDX = #{idx}
-	</delete>
+	</update>
 	
 	<!-- 북마크 그룹에 게시물 추가 -->
 	<update id="addIntoBookGroup">
