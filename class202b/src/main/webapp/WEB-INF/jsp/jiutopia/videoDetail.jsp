@@ -153,10 +153,11 @@
 				</tr>
 				<tr>
 					<td>
+					<!-- 즐겨찾기 추가 -->
 					<% if (id != null) { %>
 						<form id="bookmarkAdd" action="<%=contextPath%>/jiutopia/bookmarkAdd.do" method="post">
 							<input type="hidden" name="memId" value="<%=id%>" readonly>
-							<input type="hidden" name="ctgr" value="<%=videoId%>" readonly>
+							<input type="hidden" name="ctgr" value="<%=videoDetail.get("videoId")%>" readonly>
 							<input type="submit" id="videoBookmark" name="videoBookmark" value="즐겨찾기추가">
 						</form>
 					<% } %>

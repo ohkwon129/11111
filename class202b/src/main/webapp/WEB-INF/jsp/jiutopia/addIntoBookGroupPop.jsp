@@ -8,7 +8,7 @@
 <%	
 	List<Map<String, String>> bookGroupList = (List<Map<String, String>>)request.getAttribute("bookGroupList");
 
-	String ctgr = request.getParameter("ctgr");
+	String bookedId = request.getParameter("bookedId");
 %>
 <!DOCTYPE html>
 <html>
@@ -20,28 +20,50 @@
 <script>
 $(function(){
 	$('#btnAdd').click(function(){
+
+		$('#frm').submit();
+		
 		opener.location.href="<%=contextPath%>/jiutopia/mypage.do?memId=<%=id%>";
-		//document.frm.submit();
-		window.close();
+
+		$(function(){
+			window.close();
+		});
 	});
 	
 });
 
 </script>
 
+<style>
+	#addIntoGroup {
+	 width: 100%;
+	 height: 100%;
+	 padding: 80px 0;
+	 text-align: center;
+	 }
+	 
+	#groupSel {
+	 display: inline-block;
+	 }
+</style>
+
 </head>
 <body>
 
-	<form name="frm" action="<%=contextPath%>/jiutopia/addIntoBookGroup.do" method="post">
-		<input type="hidden" name="memId" value="<%=id%>">
-		<input type="hidden" name="ctgr" value="<%=ctgr%>">
-		<select name="idx">
-		<% for (Map<String, String> row: bookGroupList) { %>
-			<option value="<%=row.get("idx") %>"><%=row.get("groupNm") %></option>
-		<% } %>
-		
-		<input type="button" id="btnAdd" name="addIntoBookGroup" value="그룹에 추가" class="button">
-	</form>
+	<div id="addIntoGroup">
+		<div id="groupSel">
+			<p>북마크 그룹에 추가하기</p>
+			<form id="frm" action="<%=contextPath%>/jiutopia/addIntoBookGroup.do" method="post">
+				<input type="hidden" name="bookedId" value="<%=bookedId%>">
+				<select name="idx">
+				<% for (Map<String, String> row: bookGroupList) { %>
+					<option value="<%=row.get("idx") %>"><%=row.get("groupNm") %></option>
+				<% } %>
+				<input type="button" id="btnAdd" name="addIntoBookGroup" value="그룹에 추가" class="button">
+			</form>
+		</div>
+	</div>
 
 </body>
+
 </html>

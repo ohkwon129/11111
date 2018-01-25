@@ -47,4 +47,10 @@ public class BookmarkServiceImpl implements BookmarkService{
 	public int bookGroupDel(BookGroupVo vo) {
 		return dao.bookGroupDel(vo);
 	}
+
+//	즐겨찾기 해제
+	@Override
+	public int bookmarkDel(BookmarkVo vo) {
+		return dao.bookmarkDel(vo);
+	}
 }

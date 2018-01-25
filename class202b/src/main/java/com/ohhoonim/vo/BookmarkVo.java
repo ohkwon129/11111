@@ -1,9 +1,17 @@
 package com.ohhoonim.vo;
 
 public class BookmarkVo {
+	private String id;
 	private String memId;
 	private String ctgr;
 	private String idx;
+	
+	public String getId() {
+		return id;
+	}
+	public void setId(String id) {
+		this.id = id;
+	}
 	
 	public String getMemId() {
 		return memId;

@@ -34,5 +34,20 @@ public class BookmarkController {
 		
 		return "redirect:/jiutopia/mypage.do?memId=" + memId;
 	}
+
+//	북마크 해제
+	@RequestMapping("/bookmarkDel.do")
+	public String bookmarkDel(@RequestParam Map<String, String> req, ModelMap model) {
+		
+		String memId = req.get("memId") == null? "": req.get("memId");
+		String id = req.get("id") == null? "": req.get("id");
+
+		BookmarkVo vo = new BookmarkVo();
+		vo.setId(id);
+		
+		bookmarkService.bookmarkDel(vo);
+		
+		return "redirect:/jiutopia/mypage.do?memId=" + memId;
+	}
 	
 }

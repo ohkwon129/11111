@@ -35,5 +35,10 @@ public class BookmarkDao extends Mapper{
 	public int bookGroupDel(BookGroupVo vo) {
 		return delete("bookmarkGroupDel", vo);
 	}
+
+//	즐겨찾기 해제
+	public int bookmarkDel(BookmarkVo vo) {
+		return delete("bookmarkDel", vo);
+	}
 	
 }

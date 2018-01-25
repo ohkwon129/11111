@@ -128,19 +128,17 @@ public class MyPageController {
 	@RequestMapping("addIntoBookGroup.do")
 	public String addIntoBookGroup(@RequestParam Map<String, String> req, ModelMap model) {
 
-		String memId = req.get("memId");
-		String ctgr = req.get("ctgr");
 		String idx = req.get("idx");
+		String id = req.get("bookedId");
 		
 		BookmarkVo vo = new BookmarkVo();
 		
-		vo.setMemId(memId);
 		vo.setIdx(idx);
-		vo.setCtgr(ctgr);
+		vo.setId(id);
 		
 		bookmarkService.addIntoBookGroup(vo);
 		
-		return "redirect:/jiutopia/mypage.do";
+		return "jiutopia/addIntoBookGroup";
 	}
 	
 //	북마크 그룹에서 제거
@@ -148,13 +146,10 @@ public class MyPageController {
 	public String bookmarkDel(@RequestParam Map<String, Object> req, ModelMap model) {
 	
 		String memId = req.get("memId") == null? "": (String) req.get("memId");
-		String ctgr = req.get("ctgr") == null? "": (String) req.get("ctgr");
-		String idx = req.get("idx") == null? "": (String) req.get("idx");
+		String id = req.get("id") == null? "": (String) req.get("id");
 		
 		BookmarkVo vo = new BookmarkVo();
-		vo.setMemId(memId);
-		vo.setCtgr(ctgr);
-		vo.setIdx(idx);
+		vo.setId(id);
 		
 		bookmarkService.bookmarkDelFromGroup(vo);
 		

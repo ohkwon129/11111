@@ -93,12 +93,7 @@
 	<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
-	<script src='/class202b/js/month2.js'></script>
-	<script src='/class202b/js/month1.js'></script>
-	<script src='/class202b/js/month3.js'></script>
-	
-	
-	
+		
 </head>
 <body>
 
@@ -157,26 +152,24 @@
 							<% if (!gName.equals("9999")) { %>
 								<form action="<%=contextPath%>/jiutopia/bookmarkDelFromGroup.do" method="post">
 									<input type="hidden" name="memId" value="<%=id%>">
-									<input type="hidden" name="ctgr" value="<%=row.get("ctgr")%>">
-									<input type="hidden" name="idx" value="<%=row.get("idx")%>">
+									<input type="hidden" name="id" value="<%=row.get("id")%>">
 									<input type="submit" name="bookmarkDelFromG" value="그룹에서 제거" class="button">
 								</form>
 							<% } %>
 							
-						<!-- 미분류 그룹 그룹에 추가하기 -->
+						<!-- 즐겨찾기 게시물 그룹에 추가하기 -->
 							<% if (gName.equals("9999")) { %>
 								<form name="addGroupForm" action="" method="get">
 									<input type="hidden" name="memId" value="<%=id%>" readonly>
-									<input type="hidden" name="ctgr" value="<%=row.get("ctgr")%>" readonly>
+									<input type="hidden" name="bookedId" value="<%=row.get("id")%>" readonly>
 									<input type="button" name="addIntoBookGroup" value="그룹에 추가" class="button" onClick="openGroupPop(this);">
 								</form>
 							<% } %>
 							
 						<!-- 즐겨찾기 해제 버튼 -->
-								<form action="<%=contextPath%>/jiutopia/bookmarkDelFromGroup.do" method="post">
+								<form action="<%=contextPath%>/jiutopia/bookmarkDel.do" method="post">
 									<input type="hidden" name="memId" value="<%=id%>">
-									<input type="hidden" name="ctgr" value="<%=row.get("ctgr")%>">
-									<input type="hidden" name="idx" value="<%=row.get("idx")%>">
+									<input type="hidden" name="id" value="<%=row.get("id")%>">
 									<input type="submit" name="bookmarkDel" value="즐겨찾기 해제" class="button">
 								</form>
 							<br/><br/>
@@ -228,9 +221,9 @@
 		var frm = $(obj).parent();
 		
 		var memId = $(obj).parent().find('input[name="memId"]').val();
-		var ctgr = $(obj).parent().find('input[name="ctgr"]').val();
+		var bookedId = $(obj).parent().find('input[name="bookedId"]').val();
 		
-		window.open('<%=contextPath%>/jiutopia/addIntoBookGroupPop.do?memId='+memId+'&ctgr='+ctgr, 'popUp', 'width=500px, height=300px, left='+X+', top='+Y+'');
+		window.open('<%=contextPath%>/jiutopia/addIntoBookGroupPop.do?memId='+memId+'&bookedId='+bookedId, 'popUp', 'width=500px, height=300px, left='+X+', top='+Y+'');
 	}
 	
 

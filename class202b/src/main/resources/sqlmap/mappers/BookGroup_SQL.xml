@@ -5,26 +5,25 @@
 	
 <!-- 	북마크 그룹 리스트 -->
 	<resultMap id="bookGroupListView" type="java.util.Map" >
-		<result property="memId" 		column="memId"/>
-		<result property="groupNm"		column="groupNm"/>
-		<result property="videoTitle" 	column="videoTitle"/>
+		<result property="idx"		column="IDX"/>
+		<result property="groupNm" 	column="GROUP_NM"/>
 	</resultMap>
 
 <!-- 	북마크 그룹 생성 -->
 	<insert id="bookGroupAdd" parameterType="bookGroupVo">
 		INSERT INTO BOOK_GROUP (
 			MEM_ID
-			, GROUP_ID
+			, IDX
 			, GROUP_NM)
 		VALUES(
 			#{memId}
-			, #{groupId}
+			, #{idx}
 			, #{groupNm})
 	</insert>
 	
 <!-- 	북마크 그룹 리스트 -->
 	<select id="bookGroupListView" parameterType="java.util.Map" resultMap="bookGroupListView">
-		SELECT MEM_ID, GROUP_ID, GROUP_NM
+		SELECT IDX, GROUP_NM
 		FROM BOOK_GROUP
 		WHERE MEM_ID = #{memId}
 	</select>
@@ -34,7 +33,7 @@
 		DELETE FROM BOOK_GROUP
 		WHERE 
 		    MEM_ID = #{memId}
-		    AND GROUP_ID = #{groupId} 
+		    AND IDX = #{idx} 
 	</delete>
 	
 </mapper>

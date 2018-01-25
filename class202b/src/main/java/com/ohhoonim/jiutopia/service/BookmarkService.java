@@ -22,5 +22,8 @@ public interface BookmarkService {
 
 //	북마크 그룹 제거
 	public int bookGroupDel(BookGroupVo vo);
+
+//	즐겨찾기 해제
+	public int bookmarkDel(BookmarkVo vo);
 	
 }

@@ -6,6 +6,7 @@
 <!-- 	 북마크 그룹에 추가된 게시물 목록 -->
 	<resultMap id="bookGroupViewMap" type="java.util.Map">
 		<result property="type" 	column="type"></result>
+		<result property="id" 		column="id"></result>
 		<result property="memId" 	column="mem_id"></result>
 		<result property="idx" 		column="idx"></result>
 		<result property="groupNm" 	column="groupNm"></result>
@@ -20,6 +21,7 @@
 	<select id="bookGroupView" parameterType="java.util.Map" resultMap="bookGroupViewMap">      
         SELECT 
 		    '주짓수 배우기' type
+		    , B.ID id
 		    , B.MEM_ID memId
 		    , B.IDX idx
 		    , G.GROUP_NM groupNm
@@ -37,6 +39,7 @@
 		UNION ALL
 		SELECT 
 		    '주짓수 배우기' type
+		    , B.ID id
 		    , B.MEM_ID memId
 		    , '9999' idx
 		    , '미분류' groupNm
@@ -54,6 +57,7 @@
 		UNION ALL
 		SELECT 
 		    '이벤트' type
+		    , B.ID id
 		    , B.MEM_ID memId
 		    , B.IDX idx
 		    , G.GROUP_NM groupNm
@@ -74,6 +78,7 @@
 		UNION ALL
 		SELECT 
 		    '이벤트' type
+		    , B.ID id
 		    , B.MEM_ID memId
 		    , '9999' idx
 		    , '미분류' groupNm
@@ -96,24 +101,20 @@
 	<!-- 북마크 추가 -->
 	<insert id="bookmarkAdd">
 		INSERT INTO BOOKMARK (
-			idx,
+			ID,
 			MEM_ID, 
-			CTGR, 
-			group_id)
+			CTGR)
 		VALUES (
-			seq_bookmark.nextval,
+			TO_CHAR(SYSTIMESTAMP, 'YYYYMMDDHH24MISSFF3'),
 			#{memId}, 
-			#{ctgr}, 
-			#{groupId})
+			#{ctgr})
 	</insert>
 	
 	<!-- 북마크 그룹에서 제거 -->
 	<update id="bookmarkDelFromGroup">
 		UPDATE BOOKMARK
 		SET IDX = NULL
-		WHERE MEM_ID = #{memId} 
-			AND CTGR = #{ctgr}
-			AND IDX = #{idx}
+		WHERE ID = #{id}
 	</update>
 	
 	<!-- 북마크 그룹 제거 -->
@@ -122,6 +123,19 @@
 		 SET IDX = NULL
 		 WHERE MEM_ID = #{memId}
 		     AND IDX = #{idx}
+	</delete>
+	
+	<!-- 북마크 그룹에 게시물 추가 -->
+	<update id="addIntoBookGroup">
+		 UPDATE BOOKMARK
+		 SET IDX = #{idx}
+		 WHERE ID = #{id}
+	</update>
+	
+	<!-- 즐겨찾기 해제 -->
+	<delete id="bookmarkDel">
+		DELETE FROM BOOKMARK
+		WHERE ID = #{id}
 	</delete>
 	
 </mapper>
