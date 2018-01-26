@@ -96,6 +96,7 @@
 		    B.MEM_ID = #{memId}
 		    AND B.CTGR = E.EVENT_ID
 		    AND B.IDX IS NULL
+		ORDER BY idx ASC
 	</select>
 	
 	<!-- 북마크 추가 -->

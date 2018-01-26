@@ -46,11 +46,11 @@ public class BookmarkDaoTest {
 			jiu123 0001
 			*/
 			if (memId.equals("mem01")) {
-				vo.setGroupId(randomVal(groupId));
+				vo.setIdx(randomVal(groupId));
 			} else if(memId.equals("jiu123")) {
-				vo.setGroupId("0001");
+				vo.setIdx("0001");
 			} else {
-				vo.setGroupId("");
+				vo.setIdx("");
 			}
 			dao.bookmarkAdd(vo);
 			System.out.println(i);

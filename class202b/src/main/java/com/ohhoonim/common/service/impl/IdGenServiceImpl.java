@@ -32,6 +32,23 @@ public class IdGenServiceImpl implements IdGenService {
 		return sb.toString();
 	}
 	
+	@Override
+	public String thumbGen(String url) {
+		StringBuffer sb = new StringBuffer();
+		String thumb = "";
+		
+		String[] thumbSet = url.split(".be/");
+		
+		if (thumbSet.length == 2) {
+			thumb = thumbSet[1];
+			
+			sb.append("https://img.youtube.com/vi/");
+			sb.append(thumb);
+			sb.append("/0.jpg");
+		}
+		return sb.toString();
+	}
+	
 //	북마크 그룹 아이디 생성
 	@Override
 	public String bookGroupIdGen(String memId) {

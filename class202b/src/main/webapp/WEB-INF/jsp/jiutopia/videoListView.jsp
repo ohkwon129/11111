@@ -12,13 +12,15 @@
 	String videoType = (String)request.getAttribute("videoType");
 	List<VideoVo> videoList = (List<VideoVo>)request.getAttribute("videoList");
 	String selectedMenu = " class=\"w3-btn w3-aqua w3-round-large\" ";
+	
+	String loginId = id == null? "": id;
 %>
 
 <!DOCTYPE html>
 <html>
 <head>
 
-<meta charset="UTF-8">
+<meta charset="utf-8">
 <title>VIDEO LIST</title>
 <link rel="stylesheet" href="/class202b/css/common.css">
 <link rel="stylesheet" href="/class202b/css/w3.css">
@@ -29,50 +31,55 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
 
 <style>
-#wrapper{
-	padding-top: 15px;
+	#wrapper{
+		padding-top: 15px;
+		padding-right: 10px;
+		padding-bottom: 0px;
+		padding-left: 0px;
+	}
+	
+	#myNavigator{
+		width: 15%;
+		float: left;
+	}
+	
+	#movieList {
+		width: 85%;
+		float: left;
+		border-width: 1px;
+		border-top-style: none;
+		border-right-style: none;
+		border-bottom-style: none;
+		border-left-style: solid;
+		border-color: gray;
+		padding-top: 0px;
+		padding-right: 0px;
+		padding-bottom: 0px;
+		padding-left: 15px;
+	}
+	
+	#searchForm {
+		float left;
+		margin-left: 30%;
+	}
+	
+	#gubun{
+		clear : both;
+		margin : 5px, 0px, 0px, 0px;
+	}
+	
+	.movieListArea{
+	width: 50%;
+	padding-top: 10px;
 	padding-right: 10px;
-	padding-bottom: 0px;
-	padding-left: 0px;
-}
-
-#myNavigator{
-	width: 15%;
+	padding-bottom: 10px;
+	padding-left: 10px;
 	float: left;
-}
-#movieList {
-	width: 85%;
-	float: left;
-	border-width: 1px;
-	border-top-style: none;
-	border-right-style: none;
-	border-bottom-style: none;
-	border-left-style: solid;
-	border-color: gray;
-	padding-top: 0px;
-	padding-right: 0px;
-	padding-bottom: 0px;
-	padding-left: 15px;
-}
-#searchForm {
-	float left;
-	margin-left: 30%;
-}
-#gubun{
-	clear : both;
-	margin : 5px, 0px, 0px, 0px;
-}
-.movieListArea{
-width: 50%;
-padding-top: 10px;
-padding-right: 10px;
-padding-bottom: 10px;
-padding-left: 10px;
-float: left;
-}
-ul{
-list-style:none;
-}
+	}
+	
+	ul{
+	list-style:none;
+	}
 
 </style>
 
@@ -151,11 +158,20 @@ list-style:none;
 					<option value="title">제목</option>
 				</select> 
 				<input type="text" name="searchName" id="searchName" value="<%=searchName %>">
-				<input type="hidden" name="videoType" id="videoType" value="<%=videoType %>">
 				<input type="hidden" name="pageNo" value="${paging.pageNo}">
 				<input type="submit"  class="w3-btn w3-brown w3-round-xxlarge" value="검색">
 			</form>
 		</div>
+		
+		<div>
+			<!-- 비디오 등록 -->
+			<% if (loginId.equals("mem01")) { %>
+					<a href="<%=contextPath%>/jiutopia/videoPosting.do">
+						<p class="w3-btn w3-brown w3-round-xxlarge">등록</p>
+					</a>
+			<% } %>
+		</div>
+		
 		
 		<% for(VideoVo row: videoList) { %>
 		<div id = "article">
@@ -168,9 +184,9 @@ list-style:none;
 		<% } %>
 	</div>
 	<div style="clear:both;"></div>
-		<div class="pagingArea">	 
-				<center>
-			 <jsp:include page="/WEB-INF/jsp/inc/paging.jsp">
+	<div class="pagingArea">	 
+		<center>
+			<jsp:include page="/WEB-INF/jsp/inc/paging.jsp">
 				<jsp:param name="firstPageNo" value="${paging.firstPageNo}" />
 				<jsp:param name="prevPageNo" value="${paging.prevPageNo}" />
 				<jsp:param name="startPageNo" value="${paging.startPageNo}" />
@@ -178,11 +194,12 @@ list-style:none;
 				<jsp:param name="endPageNo" value="${paging.endPageNo}" />
 				<jsp:param name="nextPageNo" value="${paging.nextPageNo}" />
 				<jsp:param name="finalPageNo" value="${paging.finalPageNo}" />
-		
 			</jsp:include>		
-			</center>		
-		</div>
+		</center>		
+	</div>
 </div>
+
+
 
 <div class="top">
 	<input type="button" value="TOP" onclick="window.scrollTo(0,0);">

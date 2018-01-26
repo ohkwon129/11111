@@ -82,20 +82,7 @@ end:1515250800        1
 			vo.setMemId("mem1");
 			vo.setCtgr("category" + i);
 			
-			switch(i%3) {
-			case 0:
-				vo.setGroupNm("group001");
-				vo.setGroupId("1001");
-				break;
-			case 1:
-				vo.setGroupNm("group002");
-				vo.setGroupId("2001");
-				break;
-			case 2:
-				vo.setGroupNm("group003");
-				vo.setGroupId("3001");
-				break;
-			}
+			
 			list.add(vo);
 	
 		}

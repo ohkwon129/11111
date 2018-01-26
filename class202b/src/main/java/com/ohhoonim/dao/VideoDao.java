@@ -5,7 +5,6 @@ import java.util.Map;
 
 import org.springframework.stereotype.Repository;
 
-import com.ohhoonim.vo.BookmarkVo;
 import com.ohhoonim.vo.VideoVo;
 
 @Repository("videoDao")
@@ -32,7 +31,11 @@ public class VideoDao extends Mapper {
 	}
 
 	public int videoDel(VideoVo vo) {
-		return delete("videoDel", vo);
+		return update("videoDel", vo);
+	}
+
+	public int videoAdd(VideoVo vo) {
+		return insert("videoAdd", vo);
 	}
 
 	

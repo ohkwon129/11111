@@ -130,11 +130,6 @@ public class MyPageController {
 		String memId = req.get("memId");
 		String bookedId = req.get("bookedId");
 		String groupNm = req.get("groupNm") == null? "": req.get("groupNm");
-		
-		BookGroupVo vo = new BookGroupVo();
-		vo.setMemId(memId);
-		
-		List<Map<String, String>> bookGroupList = bookGroupService.bookGroupListView(vo);
 
 		if (groupNm.equals("")) {
 			String msg = "그룹명을 입력해 주세요.";
@@ -144,14 +139,13 @@ public class MyPageController {
 			groupName.put("msg", msg);
 			
 			model.addAttribute("groupName", groupName);
-			model.addAttribute("bookGroupList", bookGroupList);
 			
 			return rtnUrl;
 		} else {
 
 		String idx = idGenService.bookGroupIdGen(memId);
 		
-		vo = new BookGroupVo();
+		BookGroupVo vo = new BookGroupVo();
 		
 		vo.setMemId(memId);
 		vo.setIdx(idx);
@@ -161,6 +155,8 @@ public class MyPageController {
 	
 		vo = new BookGroupVo();
 		vo.setMemId(memId);
+		
+		List<Map<String, String>> bookGroupList = bookGroupService.bookGroupListView(vo);
 		
 		model.addAttribute("bookGroupList", bookGroupList);
 		

@@ -3,7 +3,6 @@ package com.ohhoonim.jiutopia.service;
 import java.util.List;
 import java.util.Map;
 
-import com.ohhoonim.vo.BookmarkVo;
 import com.ohhoonim.vo.VideoVo;
 
 public interface VideoService {
@@ -13,5 +12,6 @@ public interface VideoService {
 	public List<VideoVo> defListView(VideoVo vo);
 	public Map<String, String> videoDetailView(VideoVo vo);
 	public int videoDel(VideoVo vo);
+	public int videoAdd(VideoVo vo);
 	
 }

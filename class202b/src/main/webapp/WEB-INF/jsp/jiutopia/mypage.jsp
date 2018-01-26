@@ -195,8 +195,7 @@
 		<input id="top" type="button" value="TOP" onclick="window.scrollTo(0,0);">
 	</div>
 	
-	<footer id="footer"> 
-		<hr/>
+	<footer id="footer">
 		<p><b>“ 주짓수는 작고 약한 사람이 자신을 보호할 수 있는 유일한 호신술이다. ” 엘리오 그레이시(1913 – 2009)</b></p>
 	</footer>
 	

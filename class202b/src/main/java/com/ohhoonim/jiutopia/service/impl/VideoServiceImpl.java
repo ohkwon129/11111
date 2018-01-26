@@ -3,7 +3,6 @@ package com.ohhoonim.jiutopia.service.impl;
 import org.springframework.stereotype.Service;
 
 import com.ohhoonim.jiutopia.service.VideoService;
-import com.ohhoonim.vo.BookmarkVo;
 import com.ohhoonim.vo.VideoVo;
 import com.ohhoonim.dao.VideoDao;
 
@@ -51,6 +50,11 @@ public class VideoServiceImpl implements VideoService {
 	@Override
 	public int videoDel(VideoVo vo) {
 		return dao.videoDel(vo);
+	}
+
+	@Override
+	public int videoAdd(VideoVo vo) {
+		return dao.videoAdd(vo);
 	}
 	
 }

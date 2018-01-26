@@ -23,6 +23,7 @@
 		<result property="del" column="DEL" />
 		<result property="memId" column="MEM_ID" />
 	</resultMap>
+	
 	<!-- 비디오 목록 -->
 	<sql id="videoQuery">
 		SELECT VIDEO_ID, VIDEO_TITLE, VIDEO_THUMB
@@ -72,12 +73,35 @@
 		FROM VIDEO
 		WHERE
 			VIDEO_ID = #{videoId}
-			
 	</select>
+	
+	<!-- 비디오 삭제 -->
 	<update id="videoDel">
 		update video
 		set del = 'Y'
 		where video_id = #{videoId}
 	</update>
+	
+	<!-- 비디오 등록 -->
+	<insert id="videoAdd">
+		INSERT INTO VIDEO (
+		VIDEO_ID
+		, VIDEO_TITLE
+		, VIDEO_CONT
+		, VIDEO_URL
+		, VIDEO_WTIME
+		, VIDEO_THUMB
+		, MEM_ID
+		)
+		VALUES (
+		#{videoId}
+		, #{videoTitle}
+		, #{videoCont}
+		, #{videoUrl}
+		, TO CHAR (SYSTIMESTAMP, 'YYYY/MM/DD HH24:MI:SS')
+		, #{videoThumb}
+		, #{memId}
+		)
+	</insert>
 	
 </mapper>
