@@ -32,12 +32,13 @@ public class IdGenServiceImpl implements IdGenService {
 		return sb.toString();
 	}
 	
+//	비디오 썸네일 생성
 	@Override
 	public String thumbGen(String url) {
 		StringBuffer sb = new StringBuffer();
 		String thumb = "";
 		
-		String[] thumbSet = url.split(".be/");
+		String[] thumbSet = url.split("v=");
 		
 		if (thumbSet.length == 2) {
 			thumb = thumbSet[1];
@@ -45,6 +46,23 @@ public class IdGenServiceImpl implements IdGenService {
 			sb.append("https://img.youtube.com/vi/");
 			sb.append(thumb);
 			sb.append("/0.jpg");
+		}
+		return sb.toString();
+	}
+	
+//	비디오 재생 url 생성
+	@Override
+	public String urlGen(String url) {
+		StringBuffer sb = new StringBuffer();
+		String key = "";
+		
+		String[] keySet = url.split("v=");
+		
+		if (keySet.length == 2) {
+			key = keySet[1];
+			
+			sb.append("https://www.youtube.com/embed/");
+			sb.append(key);
 		}
 		return sb.toString();
 	}

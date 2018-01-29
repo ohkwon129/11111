@@ -98,7 +98,7 @@
 		, #{videoTitle}
 		, #{videoCont}
 		, #{videoUrl}
-		, TO CHAR (SYSTIMESTAMP, 'YYYY/MM/DD HH24:MI:SS')
+		, TO_CHAR(SYSTIMESTAMP, 'YYYY/MM/DD HH24:MI:SS')
 		, #{videoThumb}
 		, #{memId}
 		)

@@ -144,7 +144,7 @@
 					value="<%=videoUrl %>"
 					placeHolder="이곳에 URL을 입력하세요." style="width: 400px;">
 			</p>
-			<p>
+			<p> 분류 :
 				<select name="videoCtgr">
 					<option value="VIDEO_SPT">스포츠 영상</option>
 					<option value="VIDEO_DEF">호신술 영상</option>

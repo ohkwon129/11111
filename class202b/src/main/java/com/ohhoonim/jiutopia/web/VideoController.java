@@ -51,6 +51,7 @@ public class VideoController {
 		
 		model.addAttribute("videoList", videoListMap.get("list"));
 		model.addAttribute("searchName", searchName);
+		model.addAttribute("videoType", videoType);
 		
 		Paging paging = new Paging();
 		paging.setPageNo(Integer.parseInt(pageNo));
@@ -145,6 +146,11 @@ public class VideoController {
 		String videoUrl = req.get("videoUrl") == null? "": req.get("videoUrl");
 		String videoCont = req.get("videoCont") == null? "": req.get("videoCont");
 		
+		String videoId = idGenService.getNextId(videoCtgr);
+		String videoThumb = idGenService.thumbGen(videoUrl);
+		
+		videoUrl = idGenService.urlGen(videoUrl);
+		
 		if (videoTitle.equals("")) {
 			req.put("msg", "제목을 입력해주세요");
 			reAttr.addFlashAttribute("rtnParams", req);
@@ -159,13 +165,7 @@ public class VideoController {
 			req.put("msg", "내용을 입력해주세요");
 			reAttr.addFlashAttribute("rtnParams", req);
 			return rtnUrl;		
-		} else {
-			
-			String videoId = idGenService.getNextId(videoCtgr);
-			String videoThumb = idGenService.thumbGen(videoUrl);			
-			
-			System.out.println(videoId);
-			System.out.println(videoThumb);
+		} else {			
 			
 			VideoVo vo = new VideoVo();
 			
@@ -177,9 +177,10 @@ public class VideoController {
 			vo.setMemId(memId);
 			
 			videoService.videoAdd(vo);
+			
 		}
 		
-		return "jiutopia/videoListView";
+		return "redirect:/jiutopia/videoDetail.do?videoId="+videoId;
 	}
 	
 }

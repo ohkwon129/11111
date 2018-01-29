@@ -158,6 +158,7 @@
 					<option value="title">제목</option>
 				</select> 
 				<input type="text" name="searchName" id="searchName" value="<%=searchName %>">
+				<input type="hidden" name="videoType" id="videoType" value="<%=videoType %>">
 				<input type="hidden" name="pageNo" value="${paging.pageNo}">
 				<input type="submit"  class="w3-btn w3-brown w3-round-xxlarge" value="검색">
 			</form>
