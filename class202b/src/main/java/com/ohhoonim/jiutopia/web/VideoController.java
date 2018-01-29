@@ -146,6 +146,9 @@ public class VideoController {
 		String videoUrl = req.get("videoUrl") == null? "": req.get("videoUrl");
 		String videoCont = req.get("videoCont") == null? "": req.get("videoCont");
 		
+//		자바스크립트 실행 방지
+		String scriptBanned = videoCont.replaceAll("(?i)<script", "&lt;script");
+		
 		String videoId = idGenService.getNextId(videoCtgr);
 		String videoThumb = idGenService.thumbGen(videoUrl);
 		
@@ -171,7 +174,7 @@ public class VideoController {
 			
 			vo.setVideoId(videoId);
 			vo.setVideoTitle(videoTitle);
-			vo.setVideoCont(videoCont);
+			vo.setVideoCont(scriptBanned);
 			vo.setVideoUrl(videoUrl);
 			vo.setVideoThumb(videoThumb);
 			vo.setMemId(memId);
@@ -182,5 +185,5 @@ public class VideoController {
 		
 		return "redirect:/jiutopia/videoDetail.do?videoId="+videoId;
 	}
-	
+
 }

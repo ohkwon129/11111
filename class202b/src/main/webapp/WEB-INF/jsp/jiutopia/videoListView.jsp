@@ -63,6 +63,14 @@
 		margin-left: 30%;
 	}
 	
+	/* 		타이틀 메인페이지 링크 */
+	#topMain {
+		background-color: grey;
+		width: 100%; 
+		height: 85px;
+		text-align: center;
+	}
+	
 	#gubun{
 		clear : both;
 		margin : 5px, 0px, 0px, 0px;
@@ -86,59 +94,20 @@
 
 </head>
 <body>
-
-	<div id="search">
-		<a href=""><img src="<%=contextPath%>/img/search.png" width="28" alt="검색" /></a>
-	</div>
 	
-	<!-- 	마이 페이지 -->
-	<div id="myPage">
-		<%
-			if (!isLogined) {
-		%>
-		<a href="<%=contextPath%>/jiutopia/loginView.do">로그인</a>
-		<%
-			} else {
-		%>
-		<a href="<%=contextPath%>/jiutopia/mypage.do?memId=<%=id%>">마이페이지</a>
-		<a href="<%=contextPath%>/jiutopia/logout.do">로그아웃</a>
-		<%
-			}
-		%>
-	</div>
-	
-	<!-- 홈페이지 간판 -->
-	<header id="topMain">
-		<a class="homeName" href="<%=contextPath%>/jiutopia/main.do"> <font color="white" size="5"><h1>주토피아<h1></h1></font></a>
-	</header>
+	<!-- header -->
+	<jsp:include page="/WEB-INF/jsp/inc/headerNav.jsp">
+		<jsp:param name="isLogined" value="<%=isLogined %>" />
+		<jsp:param name="contextPath" value="<%=contextPath %>" />
+		<jsp:param name="id" value="<%=id %>" />
+	</jsp:include>
 	
 <!-- 좌측 네이게이터 -->	
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
- 	<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
-	
-	<div class="collapse navbar-collapse" id="navbarSupportedContent">
-    <ul class="navbar-nav ml-auto mr-auto">
-      <li class="nav-item dropdown">
-        <a class="nav-link" href="<%=contextPath %>/jiutopia/videoListView.do" id="navbarDropdown">
-          주짓수 배우기
-        </a>
-       
-       </li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-        
-        <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          주짓수 소식
-        </a>
-        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-          <a class="dropdown-item" href="<%=contextPath%>/jiutopia/championshipListView.do">대회 정보</a>
-          <a class="dropdown-item" href="<%=contextPath%>/jiutopia/seminarListView.do">세미나정보</a>
-        </div>
-        </li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-    </ul>
-  </div>
-</nav>
+	<nav class="navbar navbar-expand-lg navbar-light bg-light">
+ 		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+  		  <span class="navbar-toggler-icon"></span>
+ 		</button>	
+	</nav>
 
 <!-- 메뉴 네이게이터 -->
 <div id = "wrapper">

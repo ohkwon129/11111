@@ -43,92 +43,53 @@
 	</script>
 	
 	<style>
-#wrapper{
-	padding-top: 15px;
-	padding-right: 10px;
-	padding-bottom: 0px;
-	padding-left: 0px;
-}
-#menuNavigator {
-	width: 15%;
-	float: left;
-}
-#videoDetail {
-	width: 85%;
-	float: left;
-	border-width: 1px;
-	border-top-style: none;
-	border-right-style: none;
-	border-bottom-style: none;
-	border-left-style: solid;
-	border-color: gray;
-	padding-top: 0px;
-	padding-right: 0px;
-	padding-bottom: 0px;
-	padding-left: 15px;
-}
-#videoBookmark{
-	float: right;
-}
-#videoCmmtAdd{
-	float: right;
-}
+	
+	/* 		타이틀 메인페이지 링크 */
+	#topMain {
+		background-color: grey;
+		width: 100%; 
+		height: 85px;
+		text-align: center;
+	}
+	#wrapper{
+		padding-top: 15px;
+		padding-right: 10px;
+		padding-bottom: 0px;
+		padding-left: 0px;
+	}
+	#menuNavigator {
+		width: 15%;
+		float: left;
+	}
+	#videoDetail {
+		width: 85%;
+		float: left;
+		border-width: 1px;
+		border-top-style: none;
+		border-right-style: none;
+		border-bottom-style: none;
+		border-left-style: solid;
+		border-color: gray;
+		padding-top: 0px;
+		padding-right: 0px;
+		padding-bottom: 0px;
+		padding-left: 15px;
+	}
+	#videoBookmark{
+		float: right;
+	}
+	#videoCmmtAdd{
+		float: right;
+	}
 </style>
 </head>
 <body>	
-	<div id = "topTab">
-		
-		<div id="search">
-			<a href=""><img src="<%=contextPath%>/img/search.png" width="28" alt="검색" /></a>
-		</div>
-		<!--마이 페이지 -->
-			<div id="myPage">
-				<%
-					if (!isLogined) {
-				%>
-				<a href="<%=contextPath%>/jiutopia/loginView.do">로그인</a>
-				<%
-					} else {
-				%>
-				<a href="<%=contextPath%>/jiutopia/mypage.do?memId=<%=id%>">마이페이지</a>
-				<a href="<%=contextPath%>/jiutopia/logout.do">로그아웃</a>
-				<%
-					}
-				%>
-			</div>
-		<!-- 홈페이지 메인이름 -->
-		<header id="topMain">
-			<a class="homeName" href="<%=contextPath %>/jiutopia/main.do"><font color="white"><h1>주토피아</h1></font></a>
-		</header>
-		
-		<!-- 좌측 네이게이터 -->	
-		<nav class="navbar navbar-expand-lg navbar-light bg-light">
-			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
-				aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-				<span class="navbar-toggler-icon"></span>
-			</button>
-			<div class="collapse navbar-collapse" id="navbarSupportedContent">
-		    <ul class="navbar-nav ml-auto mr-auto">
-		      <li class="nav-item dropdown">
-		        <a class="nav-link" href="<%=contextPath %>/jiutopia/videoListView.do" id="navbarDropdown">
-		          주짓수 배우기
-		        </a>
-		       
-		        </li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-		        
-		         <li class="nav-item dropdown">
-		        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-		          주짓수 소식
-		        </a>
-		        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-		          <a class="dropdown-item" href="<%=contextPath%>/jiutopia/championshipListView.do">대회 정보</a>
-		          <a class="dropdown-item" href="<%=contextPath%>/jiutopia/seminarListView.do">세미나정보</a>
-		        </div>
-		        </li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-		    </ul>
-		  </div>
-		</nav>
-	</div>
+	<!-- header -->
+	<jsp:include page="/WEB-INF/jsp/inc/headerNav.jsp">
+		<jsp:param name="isLogined" value="<%=isLogined %>" />
+		<jsp:param name="contextPath" value="<%=contextPath %>" />
+		<jsp:param name="id" value="<%=id %>" />
+	</jsp:include>
 
 <div id = "wrapper">
 	<div id = "menuNavigator">
@@ -165,7 +126,7 @@
 					<form id="videoDel" action="<%=contextPath%>/jiutopia/videoDel.do" method="post">
 						<input type="hidden" name="videoId" value="<%=videoId%>">
 						<input type="submit" value="삭제">
-					</form>
+					</form>s
 					<% }%>
 					</td>
 				</tr>

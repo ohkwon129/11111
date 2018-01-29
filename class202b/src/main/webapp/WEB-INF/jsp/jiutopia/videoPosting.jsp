@@ -153,7 +153,7 @@
 			<p>
 				내용 :
 				<textarea name="videoCont" rows="17" cols="140"
-					placeHolder="이곳에 내용을 입력하세요."><%=videoCont%></textarea>
+					placeHolder="이곳에 내용을 입력하세요." escapeXml="true"><%=videoCont%></textarea>
 			</p>
 			<input type="submit" name="addBtn" value="등록" class="button">
 			<input type="button" name="cancelBtn" value="취소" class="button"
@@ -180,6 +180,7 @@
 
 		}
 	}
+
 </script>
 
 </html>
